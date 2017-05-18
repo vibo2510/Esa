@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<body>
+	<f:view contracts="#{view.locale.language}">
+		<ui:composition template="/template.xhtml">
+			<ui:define name="content">
+                            <h1>#{msg['listClubs.my_clubs']}</h1>
+				<h:form>
+                                    <p:dataTable value="#{listClubsController.clubList}"
+						var="club">
+						<p:column>
+							<p:commandButton onclick="PF('confirmation').show()"
+								actionListener=
+                                                                "#{listClubsController
+									.doDeleteClub(club)}"
+								icon="ui-icon-close" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								#{msg['listClubs.title']}
+							</f:facet>
+                                                    <h:outputText value="#{club.title}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								#{msg['listClubs.dayOfWeek']}
+							</f:facet>
+                                                    <h:outputText value="#{club.dayOfWeek}">
+								
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								#{msg['listClubs.start']}
+							</f:facet>
+                                                    <h:outputText value="#{club.start}">
+								<f:convertDateTime pattern="HH:mm" />
+							</h:outputText>
+						</p:column>
+                                        	<p:column>
+							<f:facet name="header">
+								#{msg['listClubs.end']}
+							</f:facet>
+                                                    <h:outputText value="#{club.end}">
+								<f:convertDateTime pattern="HH:mm" />
+							</h:outputText>
+						</p:column>
+                                                <p:column>
+							<f:facet name="header">
+								#{msg['listClubs.room']}
+							</f:facet>
+                                                    <h:outputText value="#{club.room}">
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<p:commandLink value="#{msg['listClubs.edit']}" 
+								ajax="false"
+								action=
+                                                                "#{listClubsController
+                                                                   .doEditClub(club)}" />
+						</p:column>
+						
+					</p:dataTable>
+					<p:commandButton value=
+                                                         "#{msg['listClubs.add_club']}"
+						ajax="false" 
+                                                action="#{listClubsController.doAddClub()}" />
+					<p:confirmDialog
+						message="#{msg['listClubs.ask_delete_club']}"
+						header="#{msg['listClubs.delete_club']}" 
+						severity="alert"
+						widgetVar="confirmation">
+						<p:commandButton value="#{msg['listClubs.yes']}"
+							oncomplete="PF('confirmation').hide()" ajax="false"
+							actionListener="#{listClubsController
+                                                                          .commitDeleteClub()}" />
+						<p:commandButton value="#{msg['listClubs.no']}"
+							onclick="PF('confirmation').hide()" />
+					</p:confirmDialog>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</f:view>
+</body>
+</html>

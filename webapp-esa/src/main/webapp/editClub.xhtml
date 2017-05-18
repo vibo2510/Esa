@@ -1,0 +1,110 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<body>
+	<f:view contracts="#{view.locale.language}">
+		<ui:composition template="/template.xhtml">
+			<ui:define name="content">
+				<h1>#{clubProducer.addMode ?
+					msg['editClub.add_new_club'] :
+					msg['editClub.edit_club']}</h1>
+				<h:form>
+					<h:panelGrid columns="3">
+                                            <h:outputLabel value="#{msg['editClub.title']}:">
+						</h:outputLabel>
+						<h:inputText id="a_title"
+                                                             value="#{clubProducer.selectedClub.title}"
+							validatorMessage=
+								"#{msg['editClub.club_title_validation']}">
+							<f:passThroughAttribute name="placeholder"
+								value=
+									"#{msg['editClub.title_of_the_club']}" 
+							/>
+							<f:validateRequired />
+							<f:validateLength minimum="4" maximum="30" />
+						</h:inputText>
+						<h:message for="a_title" style="color: red;" />
+						<h:outputLabel value=
+							"#{msg['editClub.day_of_week']}:">
+						</h:outputLabel>
+						<h:panelGroup>
+							<h:inputText id="a_dayOfWeek"
+								value=
+									"#{clubProducer
+                                                                           .selectedClub.dayOfWeek}"
+								validatorMessage=
+									"#{msg['editClub.day_of_week_validation']}">
+                                                            <f:validateRequired/>
+							</h:inputText> 
+						</h:panelGroup>
+						<h:message for="a_dayOfWeek" style="color: red;" />
+						<h:outputLabel value=
+							"#{msg['editClub.start']}:">
+						</h:outputLabel>
+						<h:panelGroup>
+                                                    <h:inputText id="a_start"
+							value=
+								"#{clubProducer
+                                                                   .selectedClub.start}">
+                                                        <f:convertDateTime pattern="HH:mm" />
+							<f:validateRequired />
+                                                    </h:inputText>
+						</h:panelGroup>
+                                                <h:message for="a_start" style="color: red;" />
+						<h:outputLabel value=
+                                                               "#{msg['editClub.end']}:">
+						</h:outputLabel>
+                                                <h:panelGroup>
+                                                    <h:inputText id="a_end"
+							value=
+                                                        "#{clubProducer.selectedClub.end}">
+                                                    <f:convertDateTime  pattern="HH:mm"/>
+							<f:validateRequired />
+                                                    </h:inputText>
+                                                </h:panelGroup>
+                                                <h:message for="a_start" style="color: red;" />
+                                                <h:outputLabel value=
+                                                               "#{msg['editClub.max_participants']}:">
+						</h:outputLabel>
+                                               
+                                                    <h:inputText id="a_maxParticipants"
+							value=
+                                                        "#{clubProducer.selectedClub.maxParticipants}">
+                                                    </h:inputText>
+                                             
+                                                <h:message for="a_start" style="color: red;" />
+                                                <h:outputLabel value=
+                                                               "#{msg['editClub.room']}:">
+						</h:outputLabel>
+                                                <h:panelGroup>
+                                                    <h:inputText id="a_room"
+							value=
+                                                        "#{clubProducer.selectedClub.room}">
+                                                    </h:inputText>
+                                                </h:panelGroup>
+						<h:message for="a_end" style="color: red;" />
+						<h:outputLabel value=
+                                                               "#{msg['editClub.description']}:">
+						</h:outputLabel>
+						<h:inputTextarea 
+                                                        id="a_description" 
+                                                        rows="6" 
+                                                        cols="30" 
+                                                        readonly="false" 
+                                                        value="#{clubProducer.selectedClub.description}" 
+                                                />
+						<h:message for="a_description" style="color: red;" />
+                                                
+					</h:panelGrid>
+					<h:commandButton value="#{msg['editClub.save']}"
+						action="#{editClubController.doSave}" />
+					<h:commandButton value="#{msg['editClub.cancel']}"
+						immediate="true" action=
+							"#{editClubController.doCancel}" />
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</f:view>
+</body>
+</html> 
