@@ -9,6 +9,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.primefaces.model.UploadedFile;
 
 @SessionScoped
 @Named
@@ -25,9 +28,8 @@ public class EditClubController implements Serializable {
         @Inject 
         private ListClubsController listClubsController;
         
-
+       
 	public String doSave() {
-		if (clubProducer.isAddMode()) {
                     //Solange noch keine Login vorhanden, wird hier Standard-Leader setzten
                     Leader leader = new Leader();
                     leader.setId(1);
@@ -36,6 +38,8 @@ public class EditClubController implements Serializable {
                     leader.setEmail("hw@web.de");
                     
                     clubProducer.getSelectedClub().setLeader(leader);
+		if (clubProducer.isAddMode()) {
+
                     
                     if(clubService.doAddClub(clubProducer.getSelectedClub())){
                         listClubsController.updateClubList();

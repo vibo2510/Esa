@@ -223,7 +223,7 @@ public class ClubRepository implements Serializable{
      
      public static void main(String[] args) throws SQLException, ClassNotFoundException {
         ClubRepository cr= new ClubRepository();
-        
+
         Club club = new Club();
         club.setId(20);
         club.setTitle("Bowling");
@@ -243,7 +243,7 @@ public class ClubRepository implements Serializable{
         club.setLeader(l);
         club.setRoom("Aula");
         cr.addClub(club);
-         
+
         System.out.println("DB ausgeführt");
         
            

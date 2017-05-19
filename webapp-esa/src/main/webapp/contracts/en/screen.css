@@ -8,24 +8,41 @@ body {
 #container {
 	margin: 0 auto;
 	padding: 0 20px 10px 20px;
-	border: 1px solid #666666;
-	width: 865px; 
+	border: none;
+	width: 70%; 
 	padding-top: 10px;
+       
 }
 #header {
-	font-size: 1.3em;
-	border: 1px solid #666666;
-	background: #EAECEE;
-	padding: 0 15px 5px 15px;
+	border: none;
+	background: none;
+	padding: 0 ;
 	margin-bottom: 50px;
 }
 #footer {
-	clear: both;
+   
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
 	text-align: center;
 	color: #666666;
-	font-size: 0.85em;
 	padding: 3em 0 0 0;
 }
 h2 {
 	font-size: 1.2em;
 }
+
+
+
+table.transparent td.ui-panelgrid-cell, table.transparent tr.ui-widget-content, .ui-panel.ui-widget.ui-widget-content.ui-corner-all.transparent{
+    background-color: transparent;
+    border-color: transparent;
+}
+
+
+
+.alignTextCenter{
+    text-align: center;
+}
+

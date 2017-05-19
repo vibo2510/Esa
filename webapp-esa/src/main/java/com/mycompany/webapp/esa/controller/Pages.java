@@ -13,6 +13,7 @@ public class Pages {
     	public static final String LIST_CLUBS = "listClubs";
 	public static final String EDIT_CLUB = "editClub";
 	public static final String LIST_PARTICIPANTS = "listParticipants";
+        public static final String INDEX ="index";
         
     
 }
