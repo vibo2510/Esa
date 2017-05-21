@@ -66,8 +66,8 @@ public class ParticipantRepository implements Serializable{
     
     public boolean enroleToClub(Club club, Participant participant){
         try{
-            prepstEnrole.setInt(1,participant.getId());
-            prepstEnrole.setInt(2, club.getId());
+            prepstEnrole.setInt(1,club.getId());
+            prepstEnrole.setInt(2,participant.getId() );
             prepstEnrole.execute();
             return true;
         }catch(SQLException ex){
@@ -78,8 +78,8 @@ public class ParticipantRepository implements Serializable{
     
     public boolean dischargeClub(Club club,Participant participant){
         try {
-            prepstDischarge.setInt(1, participant.getId());
-            prepstDischarge.setInt(2,club.getId());
+            prepstDischarge.setInt(1, club.getId());
+            prepstDischarge.setInt(2,participant.getId());
             prepstDischarge.execute();
             return true;
         } catch (SQLException ex) {
