@@ -45,4 +45,7 @@ table.transparent td.ui-panelgrid-cell, table.transparent tr.ui-widget-content, 
 .alignTextCenter{
     text-align: center;
 }
-
+td.ui-datagrid-column{
+    width: 33%;
+    
+}

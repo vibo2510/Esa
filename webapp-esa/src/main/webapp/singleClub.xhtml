@@ -9,7 +9,7 @@
             <ui:composition template="/template.xhtml">
                 <ui:define name="content">
                     <h:form  >
-                        <p:commandButton value="#{msg['singleClub.button']}" action="#{singleClubController.enroleToClub()}" style="float: right; width: 200px; height: 50px;"/>
+                        <p:commandButton value="#{msg['singleClub.button']}" update=":form:dataPartici" action="#{singleClubController.enroleToClub()}" style="float: right; width: 200px; height: 50px;"/>
                     </h:form>
                    
                     <h:graphicImage value="resources/img/#{singleClubController.title}.png" style="width: 30%"/>
@@ -25,7 +25,7 @@
                     </div>
                     <h:form id="form" >
                         <h2>#{msg['singleClub.tableName']}</h2>
-                        <p:dataTable value="#{singleClubController.participants}"
+                        <p:dataTable id="dataPartici" value="#{singleClubController.participants}"
 						var="participant" >
                             <p:column>
 				<f:facet name="header">

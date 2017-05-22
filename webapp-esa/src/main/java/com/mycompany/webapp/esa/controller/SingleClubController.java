@@ -61,13 +61,17 @@ public class SingleClubController implements Serializable{
     
     //public void enroleToClub(Participant p){
     public void enroleToClub(){
+        System.out.println("Hinzufuegen anfangen");
         Participant p= new  Participant();
         p.setId(2);
         p.setFirstname("Harald");
         p.setLastname("Schlegel");
         p.setEmail("hs@web.de");
         if(participantService.enroleToClub(p, this.club)){
-            listParticipants= participantService.getAllParticipantsOfClub(club);
+            listParticipants= participantService.getAllParticipantsOfClub(this.club);
+            System.out.println("Hinzufuegen geklappt");
+        }else{
+            System.out.println("Hinzufuegen fehlgeschlagen");
         }
         
     }

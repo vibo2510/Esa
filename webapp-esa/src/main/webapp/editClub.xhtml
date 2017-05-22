@@ -11,7 +11,7 @@
 					msg['editClub.add_new_club'] :
 					msg['editClub.edit_club']}</h1>
                                 
-				<h:form>
+                                <h:form enctype="multipart/form-data">
                                     <p:panel id="panel" styleClass="transparent">
                                     <p:messages id="msgs" />
                                     <p:panelGrid columns="3" styleClass="transparent">
@@ -110,14 +110,19 @@
                                                         value="#{clubProducer.selectedClub.description}" required="true"
                                                 />
 						<p:message for="a_description" display="icon"/>
-  
+                                            
+                                                <p:fileUpload value="#{editClubController.file}" mode="simple" skinSimple="true"/>
+                                                
+                                                <p:commandButton value="Submit" ajax="false" actionListener="#{editClubController.uploadPicture}" disabled="false" />
+                                            
 					</p:panelGrid>
 					<p:commandButton value="#{msg['editClub.save']}"
-						action="#{editClubController.doSave}" 
+                                                         
+                                                         action="#{editClubController.doSave}"
                                                 update="panel"  />
 					<p:commandButton value="#{msg['editClub.cancel']}"
 						immediate="true" action=
-							"#{editClubController.doCancel}" />
+                                                "#{editClubController.doCancel}"  />
                                     </p:panel>
                                 </h:form>
 			</ui:define>

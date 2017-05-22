@@ -21,9 +21,8 @@
 
                             <p:panel header="#{club.title}" style="text-align:center">
                                 <h:panelGrid columns="1" style="width:100%">
-                                    <h:commandButton actionListener="#{singleClubController.setClub(club)}" action="/singleClub.xhtml" image="resources/img/imageDummy.png" style="width: 150px;"  />
-                                    <h:outputText value="#{club.description}" />
-                                   
+                                    <h:commandButton actionListener="#{singleClubController.setClub(club)}" action="/singleClub.xhtml" image="resources/img/#{club.title}.png" style="width: 100%;"  />
+                                    
                                 </h:panelGrid>
                             </p:panel>
 
