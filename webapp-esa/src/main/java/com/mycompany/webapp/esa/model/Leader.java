@@ -5,23 +5,35 @@
  */
 package com.mycompany.webapp.esa.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author Viktoria Bock
  */
-public class Leader extends Participant{
-    	private int id;
+@Entity
+public class Leader extends Participant implements Serializable{
+    	
+        
+        private int id;
 	private String firstname;
 	private String lastname;
 	private String email;
+        
+        private List<Club> clubs;
         
     public Leader(){
         
     }
   
     
-    public Leader(int id, String firstname, String lastname, String email){
-        super(id, firstname,lastname,email);
+    public Leader(int id, String firstname, String lastname, String email,List<Club> clubs){
+        super(id, firstname,lastname,email,clubs);
     }
     
     

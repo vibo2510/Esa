@@ -6,27 +6,44 @@
 package com.mycompany.webapp.esa.model;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 
 /**
  *
  * @author Viktoria Bock
  */
-public class Club {
+@Entity
+@NamedQuery(name="Club.findAll",query= "SELECT c FROM Club c ORDER BY c.title")
+public class Club implements Serializable{
+        @Id
+        @GeneratedValue
 	private int id;
 	private String title;
 	private DayOfWeek dayOfWeek;
-	private Date start;
-	private Date end;
+	private Date starttime;
+	private Date endtime;
 	private String description;
+        @ManyToMany(cascade= CascadeType.PERSIST)
 	private List<Participant> participants;
+        @ManyToOne(cascade= CascadeType.PERSIST)
 	private Leader leader;
 	private int maxParticipants;
 	private String room;
         
 
-	
+	public static final String findAll="Club.findAll";
 	
 	public enum DayOfWeek{
 		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
@@ -49,17 +66,17 @@ public class Club {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Date getStart() {
-		return start;
+	public Date getStarttime() {
+		return starttime;
 	}
-	public void setStart(Date start) {
-		this.start = start;
+	public void setStarttime(Date starttime) {
+		this.starttime = starttime;
 	}
-	public Date getEnd() {
-		return end;
+	public Date getEndtime() {
+		return endtime;
 	}
-	public void setEnd(Date end) {
-		this.end = end;
+	public void setEndtime(Date endtime) {
+		this.endtime = endtime;
 	}
 	public String getDescription() {
 		return description;

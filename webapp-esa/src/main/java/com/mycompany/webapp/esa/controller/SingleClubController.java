@@ -52,11 +52,11 @@ public class SingleClubController implements Serializable{
     }
     public String getStartTime(){
         SimpleDateFormat sdf = new SimpleDateFormat("HH:MM");
-        return sdf.format(club.getStart()).toString();
+        return sdf.format(club.getStarttime()).toString();
     }
     public String getEndTime(){
         SimpleDateFormat sdf = new SimpleDateFormat("HH:MM");
-        return sdf.format(club.getEnd()).toString();
+        return sdf.format(club.getEndtime()).toString();
     }
     
     //public void enroleToClub(Participant p){

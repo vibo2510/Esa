@@ -47,5 +47,9 @@ table.transparent td.ui-panelgrid-cell, table.transparent tr.ui-widget-content, 
 }
 td.ui-datagrid-column{
     width: 33%;
+    height: 100%;
+    vertical-align: top;
+    border-style: none !important
     
 }
+

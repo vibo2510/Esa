@@ -68,8 +68,8 @@ public class ClubRepository implements Serializable{
             
             prepstAdd.setString(1, club.getTitle());
             prepstAdd.setString(2, club.getDayOfWeek().toString());
-            prepstAdd.setTimestamp(3, new Timestamp(club.getStart().getTime()));
-            prepstAdd.setTimestamp(4, new Timestamp (club.getEnd().getTime()));
+            prepstAdd.setTimestamp(3, new Timestamp(club.getStarttime().getTime()));
+            prepstAdd.setTimestamp(4, new Timestamp (club.getEndtime().getTime()));
             prepstAdd.setString(5, club.getDescription());
             prepstAdd.setInt(6, club.getLeader().getId());
             prepstAdd.setInt(7, club.getMaxParticipants());
@@ -102,8 +102,8 @@ public class ClubRepository implements Serializable{
             //getConnection();
             prepstUpdate.setString(1, club.getTitle());
             prepstUpdate.setString(2, club.getDayOfWeek().toString());
-            prepstUpdate.setTimestamp(3, new Timestamp(club.getStart().getTime()));
-            prepstUpdate.setTimestamp(4, new Timestamp (club.getEnd().getTime()));
+            prepstUpdate.setTimestamp(3, new Timestamp(club.getStarttime().getTime()));
+            prepstUpdate.setTimestamp(4, new Timestamp (club.getEndtime().getTime()));
             prepstUpdate.setString(5, club.getDescription());
             prepstUpdate.setInt(6, club.getLeader().getId());
             prepstUpdate.setInt(7, club.getMaxParticipants());
@@ -128,8 +128,8 @@ public class ClubRepository implements Serializable{
                 club.setId(rs.getInt("ID"));
                 club.setTitle(rs.getString("TITLE"));
                 club.setDayOfWeek(Club.DayOfWeek.valueOf(rs.getString("DAYOFWEEK")));
-                club.setStart(rs.getTimestamp("STARTTIME"));
-                club.setEnd(rs.getTimestamp("ENDTIME"));
+                club.setStarttime(rs.getTimestamp("STARTTIME"));
+                club.setEndtime(rs.getTimestamp("ENDTIME"));
                 club.setDescription(rs.getString("Description"));
                 club.setMaxParticipants(rs.getInt("MAXPARTICIPANTS"));
                 club.setRoom(rs.getString("ROOM"));                
@@ -155,8 +155,8 @@ public class ClubRepository implements Serializable{
                 club.setId(rs.getInt("ID"));
                 club.setTitle(rs.getString("TITLE"));
                 club.setDayOfWeek(Club.DayOfWeek.valueOf(rs.getString("DAYOFWEEK")));
-                club.setStart(rs.getTimestamp("STARTTIME"));
-                club.setEnd(rs.getTimestamp("ENDTIME"));
+                club.setStarttime(rs.getTimestamp("STARTTIME"));
+                club.setEndtime(rs.getTimestamp("ENDTIME"));
                 club.setDescription(rs.getString("Description"));
                 club.setMaxParticipants(rs.getInt("MAXPARTICIPANTS"));
                 club.setRoom(rs.getString("ROOM"));
@@ -181,8 +181,8 @@ public class ClubRepository implements Serializable{
                 club.setId(rs.getInt("ID"));
                 club.setTitle(rs.getString("TITLE"));
                 club.setDayOfWeek(Club.DayOfWeek.valueOf(rs.getString("DAYOFWEEK")));
-                club.setStart(rs.getTimestamp("STARTTIME"));
-                club.setEnd(rs.getTimestamp("ENDTIME"));
+                club.setStarttime(rs.getTimestamp("STARTTIME"));
+                club.setEndtime(rs.getTimestamp("ENDTIME"));
                 club.setDescription(rs.getString("Description"));
                 club.setMaxParticipants(rs.getInt("MAXPARTICIPANTS"));
                 club.setRoom(rs.getString("ROOM"));
@@ -230,8 +230,8 @@ public class ClubRepository implements Serializable{
         java.util.Date start1= new java.util.Date();
         start1.setMinutes(30);
         start1.setHours(21);
-        club.setStart(start1);
-        club.setEnd(start1);
+        club.setStarttime(start1);
+        club.setEndtime(start1);
         club.setDayOfWeek(Club.DayOfWeek.MONDAY);
         club.setDescription("svndjnsdvjjsdvn");
         club.setMaxParticipants(10);

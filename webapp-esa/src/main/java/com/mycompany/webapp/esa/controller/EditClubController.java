@@ -2,7 +2,6 @@ package com.mycompany.webapp.esa.controller;
 
 
 import business.ClubService;
-import com.mycompany.webapp.esa.data.ClubListProducer;
 import com.mycompany.webapp.esa.data.ClubProducer;
 import com.mycompany.webapp.esa.model.Leader;
 import java.io.File;
@@ -30,8 +29,7 @@ import org.primefaces.model.UploadedFile;
 public class EditClubController implements Serializable {
 	private static final long serialVersionUID = 2815796004558360299L;
 
-	@Inject
-	private ClubListProducer clubListProducer;
+
 	@Inject
 	private ClubProducer clubProducer;
         @Inject 

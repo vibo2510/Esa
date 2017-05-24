@@ -10,6 +10,7 @@
                 <ui:define name="content">
 
                     <h:form id="form">
+                        <p:commandButton value="Test" action="#{indexController.doTest()}"></p:commandButton>
                         <p:dataGrid var="club" value="#{indexController.clubList}" columns="3" 
                                     rows="12" paginator="true" id="clubs"
                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -20,8 +21,9 @@
                             </f:facet>
 
                             <p:panel header="#{club.title}" style="text-align:center">
-                                <h:panelGrid columns="1" style="width:100%">
-                                    <h:commandButton actionListener="#{singleClubController.setClub(club)}" action="/singleClub.xhtml" image="resources/img/#{club.title}.png" style="width: 100%;"  />
+                                <h:panelGrid columns="3" style="width:100%;"  >
+                                    <h:commandButton actionListener="#{singleClubController.setClub(club)}" action="/singleClub.xhtml" 
+                                                     image="resources/img/#{club.title}.png" style="width: 100%; vertical-align: top"  />
                                     
                                 </h:panelGrid>
                             </p:panel>
