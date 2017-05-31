@@ -5,7 +5,7 @@
  */
 package com.mycompany.webapp.esa.controller;
 
-import business.ParticipantService;
+import com.mycompany.webapp.esa.services.ParticipantService;
 import com.mycompany.webapp.esa.model.Club;
 import com.mycompany.webapp.esa.model.Participant;
 import java.io.Serializable;

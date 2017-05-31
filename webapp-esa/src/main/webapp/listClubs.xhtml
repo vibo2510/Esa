@@ -30,7 +30,7 @@
 							<f:facet name="header">
 								#{msg['listClubs.start']}
 							</f:facet>
-                                                    <h:outputText value="#{club.start}">
+                                                    <h:outputText value="#{club.starttime}">
 								<f:convertDateTime pattern="HH:mm" />
 							</h:outputText>
 						</p:column>
@@ -38,7 +38,7 @@
 							<f:facet name="header">
 								#{msg['listClubs.end']}
 							</f:facet>
-                                                    <h:outputText value="#{club.end}">
+                                                    <h:outputText value="#{club.endtime}">
 								<f:convertDateTime pattern="HH:mm" />
 							</h:outputText>
 						</p:column>

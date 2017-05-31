@@ -42,7 +42,7 @@ public class LeaderRepository implements Serializable{
    
     
     public void getConnection() throws SQLException, ClassNotFoundException{
-    Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+    Class.forName("org.apache.derby.jdbc.ClientDriver");
     String dbUrl = "jdbc:derby://localhost:1527/ClubOrgaDB";
     conn=DriverManager.getConnection(dbUrl,"rovi", "123");
     

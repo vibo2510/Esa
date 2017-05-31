@@ -57,7 +57,7 @@ public class ClubRepository implements Serializable{
     
     
     public void getConnection() throws ClassNotFoundException, SQLException{
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+        Class.forName("org.apache.derby.jdbc.ClientDriver");
         String dbUrl = "jdbc:derby://localhost:1527/ClubOrgaDB";
         conn=DriverManager.getConnection(dbUrl,"rovi", "123");
     }

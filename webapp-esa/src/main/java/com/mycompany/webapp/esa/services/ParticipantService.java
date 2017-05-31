@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business;
+package com.mycompany.webapp.esa.services;
 
 import com.mycompany.webapp.esa.data.ClubRepository;
 import com.mycompany.webapp.esa.data.ParticipantRepository;

@@ -5,41 +5,43 @@
  */
 package com.mycompany.webapp.esa.controller;
 
-import business.ClubService;
+import com.mycompany.webapp.esa.services.ClubService;
 import com.mycompany.webapp.esa.data.ClubProducer;
 
 
 import com.mycompany.webapp.esa.model.Club;
+import com.mycompany.webapp.esa.services.ClubServiceInterface;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 
 /**
  *
  * @author Viktoria Bock
  */
-@SessionScoped
 @Named
+@SessionScoped
 public class ListClubsController implements Serializable{
 
     @Inject private ClubProducer clubProducer;
-    @Inject private ClubService clubService;
+    @Inject private ClubServiceInterface clubService;
    
    
     
     private Club clubToDelete; 
-    private ArrayList<Club> ClubList;
+    private List<Club> ClubList;
         
         @PostConstruct
         void init(){
             ClubList=clubService.getAllClubs();
         }
 
-        public ArrayList<Club> getClubList() {
+        public List<Club> getClubList() {
             return ClubList;
         }
 
@@ -72,11 +74,9 @@ public class ListClubsController implements Serializable{
 
 	public void commitDeleteClub() {
 		System.out.println("Deletion not implemented, yet!");
-                if(clubService.doDeleteClub(clubToDelete)){
+                clubService.deleteClub(clubToDelete);
                     updateClubList();
-                }else{
-                    System.out.println("Fehler beim Löschen des Referats "+clubToDelete.getTitle());
-                }
+                
 	}
         public  void updateClubList(){
             ClubList= clubService.getAllClubs();

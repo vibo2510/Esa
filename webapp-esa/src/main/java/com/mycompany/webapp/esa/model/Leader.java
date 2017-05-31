@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Leader extends Participant implements Serializable{
 	private String firstname;
 	private String lastname;
 	private String email;
-        
+        @OneToMany(mappedBy = "leader")
         private List<Club> clubs;
         
     public Leader(){

@@ -5,9 +5,10 @@
  */
 package com.mycompany.webapp.esa.controller;
 
-import business.ClubService;
+import com.mycompany.webapp.esa.services.ClubService;
 import com.mycompany.webapp.esa.model.Club;
 import com.mycompany.webapp.esa.model.Participant;
+import com.mycompany.webapp.esa.services.ClubServiceInterface;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
@@ -23,7 +24,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class ListClubsOfParticipantController implements Serializable{
-   @Inject private ClubService clubService;
+   @Inject private ClubServiceInterface clubService;
     /**
      * Creates a new instance of ListClubsOfParticipantController
      */
@@ -38,7 +39,7 @@ public class ListClubsOfParticipantController implements Serializable{
             participant.setFirstname("Hans");
             participant.setLastname("Wurst");
             participant.setEmail("hw@web.de");
-            ClubList=clubService.getAllClubsOfParticipant(participant);
+            //ClubList=clubService.getAllClubsOfParticipant(participant);
         }
         
         
@@ -51,11 +52,11 @@ public class ListClubsOfParticipantController implements Serializable{
         }
         
         public void commitDischarge(){
-            if(clubService.doDischarge(clubToDischarge, participant)){
+            /*if(clubService.doDischarge(clubToDischarge, participant)){
                  ClubList=clubService.getAllClubsOfParticipant(participant);
             }else{
                 System.out.println("Fehler beim Austragen aufgetreten");
-            }
+            }*/
         }
    
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business;
+package com.mycompany.webapp.esa.services;
 
 import com.mycompany.webapp.esa.data.ClubRepository;
 import com.mycompany.webapp.esa.data.ParticipantRepository;
@@ -12,41 +12,37 @@ import com.mycompany.webapp.esa.model.Participant;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Model;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author Viktoria Bock
  */
-@Named
-@RequestScoped
-public class ClubService implements Serializable {
+
+@Stateless
+public class ClubService implements Serializable, ClubServiceInterface {
     @Inject ClubRepository clubRepository;
     @Inject ParticipantRepository participantRepository;
-
+    @Inject EntityManager entityManager;
     /**
      * Creates a new instance of ClubService
      */
     public ClubService() {
     }
-    
-    public ArrayList<Club> getAllClubs(){
-        return clubRepository.getAllClubs();
+    @Override
+    public List<Club> getAllClubs(){
+        
+        TypedQuery<Club> query = entityManager.createNamedQuery(Club.findAll,Club.class);
+        List<Club> clubs = query.getResultList();
+        return clubs;
     }
-    
-    public boolean doDeleteClub(Club club){
-        return clubRepository.deleteClub(club);
-    }
-    
-    public boolean doEditClub(Club club){
-        return clubRepository.updateClub(club);
-    }
-    
-    public boolean  doAddClub(Club club){
-        return clubRepository.addClub(club);
-    }
-    
+       
     public ArrayList<Club> getAllClubsOfParticipant(Participant participant){
         return clubRepository.getParticipantClubs(participant);
         
@@ -55,6 +51,22 @@ public class ClubService implements Serializable {
     public boolean doDischarge(Club club, Participant participant){
         return participantRepository.dischargeClub(club, participant);
         
+    }
+
+    @Override
+    public void addClub(Club club) {
+        entityManager.persist(club);
+    }
+
+    @Override
+    public void deleteClub(Club club) {
+        Club managedClub = entityManager.find(Club.class, club.getId());
+        entityManager.remove(managedClub);
+    }
+
+    @Override
+    public void updateClub(Club club) {
+        entityManager.merge(club);
     }
     
     

@@ -1,9 +1,10 @@
 package com.mycompany.webapp.esa.controller;
 
 
-import business.ClubService;
+import com.mycompany.webapp.esa.services.ClubService;
 import com.mycompany.webapp.esa.data.ClubProducer;
 import com.mycompany.webapp.esa.model.Leader;
+import com.mycompany.webapp.esa.services.ClubServiceInterface;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -33,7 +34,7 @@ public class EditClubController implements Serializable {
 	@Inject
 	private ClubProducer clubProducer;
         @Inject 
-        private ClubService clubService;
+        private ClubServiceInterface clubService;
         
         @Inject 
         private ListClubsController listClubsController;
@@ -53,16 +54,13 @@ public class EditClubController implements Serializable {
 		if (clubProducer.isAddMode()) {
 
                     
-                    if(clubService.doAddClub(clubProducer.getSelectedClub())){
-                        listClubsController.updateClubList();
-                    }else{
-                        System.out.println("Beim Hinzufügen ist ein Fehler aufgetreten");
-                    }
-                    
+                    clubService.addClub(clubProducer.getSelectedClub());
+                    listClubsController.updateClubList();
+                                        
                     //ohne DB
                     //clubListProducer.getClubs().add(clubProducer.getSelectedClub());
 		}
-                clubService.doEditClub(clubProducer.getSelectedClub());
+                clubService.updateClub(clubProducer.getSelectedClub());
 		return Pages.LIST_CLUBS;
 	}
 	public String doCancel() {
