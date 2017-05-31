@@ -14,8 +14,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -42,17 +40,12 @@ public class ClubService implements Serializable, ClubServiceInterface {
         List<Club> clubs = query.getResultList();
         return clubs;
     }
-       
-    public ArrayList<Club> getAllClubsOfParticipant(Participant participant){
-        return clubRepository.getParticipantClubs(participant);
+      @Override
+    public List<Club> getAllClubsOfParticipant(Participant participant){
+        return participant.getClubs();
         
     }
     
-    public boolean doDischarge(Club club, Participant participant){
-        return participantRepository.dischargeClub(club, participant);
-        
-    }
-
     @Override
     public void addClub(Club club) {
         entityManager.persist(club);

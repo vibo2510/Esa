@@ -5,16 +5,19 @@
  */
 package com.mycompany.webapp.esa.controller;
 
-import com.mycompany.webapp.esa.services.ParticipantService;
+import com.mycompany.webapp.esa.services.ParticipantServiceInterface;
 import com.mycompany.webapp.esa.model.Club;
 import com.mycompany.webapp.esa.model.Participant;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -23,13 +26,13 @@ import javax.inject.Named;
 @SessionScoped
 @Named
 public class SingleClubController implements Serializable{
-    @Inject private ParticipantService participantService;
-    private ArrayList<Participant> listParticipants;
+    @Inject private ParticipantServiceInterface participantService;
+    private List<Participant> listParticipants;
     private Club club;
     
     
     
-    public ArrayList<Participant> getParticipants(){
+    public List<Participant> getParticipants(){
         return listParticipants;
     }
     public void setClub(Club club){
@@ -59,20 +62,20 @@ public class SingleClubController implements Serializable{
         return sdf.format(club.getEndtime()).toString();
     }
     
-    //public void enroleToClub(Participant p){
+    
     public void enroleToClub(){
         System.out.println("Hinzufuegen anfangen");
         Participant p= new  Participant();
-        p.setId(2);
         p.setFirstname("Harald");
         p.setLastname("Schlegel");
         p.setEmail("hs@web.de");
-        if(participantService.enroleToClub(p, this.club)){
-            listParticipants= participantService.getAllParticipantsOfClub(this.club);
-            System.out.println("Hinzufuegen geklappt");
-        }else{
-            System.out.println("Hinzufuegen fehlgeschlagen");
-        }
+        LinkedList<Club> list = new LinkedList<Club>();
+        p.setClubs(list);
+        participantService.addParticipant(p);
+        participantService.enroleToClub(p, this.club);
+        listParticipants= participantService.getAllParticipantsOfClub(this.club);
+        System.out.println("Hinzufuegen geklappt");
+        
         
     }
     
