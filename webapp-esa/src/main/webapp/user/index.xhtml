@@ -10,7 +10,7 @@
                 <ui:define name="content">
 
                     <h:form id="form">
-                        <p:commandButton value="Test" action="#{indexController.doTest()}"></p:commandButton>
+                        
                         <p:dataGrid var="club" value="#{indexController.clubList}" columns="3" 
                                     rows="12" paginator="true" id="clubs"
                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

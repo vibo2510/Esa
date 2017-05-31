@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -38,10 +39,17 @@ public class IndexController implements Serializable {
 
     @PostConstruct
     void init() {
+      
         ClubList = clubService.getAllClubs();
     }
 
     public List<Club> getClubList() {
+        
+       /* String email= (String) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+       System.out.println(email);
+       System.out.println("**********************************************");*/
+    
+        
         return ClubList;
     }
 
