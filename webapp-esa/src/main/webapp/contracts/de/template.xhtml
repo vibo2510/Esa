@@ -15,13 +15,16 @@
 				<h:form>  
                                     <p:growl id="messages"/>
 
-                                    <p:menubar>
-                                        <p:menuitem value="#{msg['index.home']}"  icon="fa fa-home" immediate="true" action="#{indexController.updateClubList()}" />
-                                        <p:menuitem value="#{msg['index.account']}" url="/listClubs.xhtml" icon="fa fa-user" immediate="true" />
+                                    <p:menubar styleClass="myMenubar" >
+                                        <p:menuitem value="#{msg['template.home']}"  icon="fa fa-home" immediate="true" url="/index.xhtml" styleClass="myMenuitem"/>
+                                        <p:menuitem value="#{msg['template.account']}" icon="fa fa-user" immediate="true" styleClass="myMenuitem" action="#{templateController.onAccountOpen()}"/>
 
                                         <f:facet name="options">
-                                            <p:commandButton type="button" value="Logout" icon="fa fa-sign-out" immediate="true" />
-                                            
+                                            <p:commandButton value="#{templateController.loggedIn ?
+                                                msg['template.logout'] :
+                                                msg['template.login']}"  icon="fa fa-sign-out" action="#{templateController.onLogOut()}" disabled="#{!templateController.loggedIn}" widgetVar="logoutButton"
+                                                             onclick="PF('logoutButton').disable()"  />    
+                                         
                                         </f:facet>
                                     </p:menubar>
                                 </h:form>

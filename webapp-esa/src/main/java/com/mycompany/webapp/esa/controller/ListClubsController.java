@@ -5,40 +5,55 @@
  */
 package com.mycompany.webapp.esa.controller;
 
+import com.mycompany.webapp.esa.authentification.AuthenticationManager;
 import com.mycompany.webapp.esa.services.ClubService;
 import com.mycompany.webapp.esa.data.ClubProducer;
 
 
 import com.mycompany.webapp.esa.model.Club;
+import com.mycompany.webapp.esa.model.Leader;
 import com.mycompany.webapp.esa.services.ClubServiceInterface;
+import com.mycompany.webapp.esa.services.LeaderServiceInterface;
 
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+
+import javax.faces.view.ViewScoped;
 
 /**
  *
  * @author Viktoria Bock
  */
 @Named
-@SessionScoped
+@ViewScoped
 public class ListClubsController implements Serializable{
 
     @Inject private ClubProducer clubProducer;
     @Inject private ClubServiceInterface clubService;
+    @Inject private AuthenticationManager authenticationManager;
+    @Inject private LeaderServiceInterface leaderService;
+  
    
-   
-    
+    private Leader leader;
     private Club clubToDelete; 
     private List<Club> ClubList;
         
         @PostConstruct
         void init(){
-            ClubList=clubService.getAllClubs();
+            
+             
+            leader = (Leader) leaderService.getLeaderById(authenticationManager.getCurrentUserId());
+            System.out.println("der leader"+leader +"******************************");
+            ClubList = leader.getClubs();
+            for(Club c:ClubList){
+                System.out.println("Leader-Clubs: "+c.getTitle());
+            }
+            
+            
         }
 
         public List<Club> getClubList() {
@@ -79,6 +94,8 @@ public class ListClubsController implements Serializable{
                 
 	}
         public  void updateClubList(){
-            ClubList= clubService.getAllClubs();
+            System.out.println("$$$$$$$ClubListWasUpdatet");
+            leader= leaderService.getLeaderById(authenticationManager.getCurrentUserId());
+            ClubList= leader.getClubs();
         }
 }

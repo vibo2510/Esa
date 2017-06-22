@@ -10,10 +10,14 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Version;
 
@@ -22,7 +26,10 @@ import javax.persistence.Version;
  * @author Viktoria Bock
  */
 @Entity
-@NamedQuery(name = "Club.findAll", query = "SELECT c FROM Club c ORDER BY c.title")
+@NamedQueries({
+    @NamedQuery(name = "Club.findAll", query = "SELECT c FROM Club c ORDER BY c.title")
+    ,
+@NamedQuery(name = "Club.findById", query = "SELECT c FROM Club c WHERE c.id= :id")})
 public class Club implements Serializable {
 
     @Id
@@ -35,14 +42,25 @@ public class Club implements Serializable {
     private Date starttime;
     private Date endtime;
     private String description;
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    private List<Participant> participants;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="LEADER_ID")
     private Leader leader;
     private int maxParticipants;
     private String room;
 
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    @JoinTable(name = "CLUB_APPUSER",
+            joinColumns = @JoinColumn(name = "CLUB_ID"),
+            inverseJoinColumns = @JoinColumn(name = "APPUSER_ID")
+    )
+    private List<Participant> participants;
+
     public static final String findAll = "Club.findAll";
+    public static final String findById = "Club.findById";
 
     public enum DayOfWeek {
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;

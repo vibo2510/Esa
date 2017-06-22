@@ -7,18 +7,14 @@
 	<f:view contracts="#{view.locale.language}">
 		<ui:composition template="/template.xhtml">
 			<ui:define name="content">
-                            <h1>#{msg['listClubs.my_clubs']}</h1>
-				<h:form>
-                                    <p:dataTable value="#{listClubsOfParticipantController.clubList}"
-						var="club">
-						<p:column>
-							<p:commandButton onclick="PF('confirmation').show()"
-								actionListener=
-                                                                "#{listClubsOfParticipantController
-                                                                   .doDischarge(club)
-									}"
-								icon="ui-icon-close" />
-						</p:column>
+                            
+
+                             <h:form>
+                                 <p:outputPanel style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block;">
+                                   <p:graphicImage value="/resources/img/headerLeaderAccount.png" id="image" width="100%" />
+                                    <p:dataTable value="#{listClubsController.clubList}"
+						var="club" style="margin-top: -4px">
+                                       
 						<p:column>
 							<f:facet name="header">
 								#{msg['listClubs.title']}
@@ -56,10 +52,27 @@
                                                     <h:outputText value="#{club.room}">
 							</h:outputText>
 						</p:column>
-						
+						<p:column styleClass="alignTextCenter">
+                                                    <p:commandButton onclick="#{msg['listClubs.edit']}" 
+								action=
+                                                                "#{listClubsController
+                                                                   .doEditClub(club)}" icon="fa fa-pencil"   />
+						</p:column>
+                                         <p:column styleClass="alignTextCenter">
+                                             
+							<p:commandButton onclick="PF('confirmation').show()"
+								actionListener=
+                                                                "#{listClubsController
+									.doDeleteClub(club)}"
+                                                                icon="fa fa-trash" />
+						</p:column>
 						
 					</p:dataTable>
-					
+                                 </p:outputPanel>
+					<p:commandButton value=
+                                                         "#{msg['listClubs.add_club']}"
+						ajax="false" 
+                                                action="#{listClubsController.doAddClub()}" icon="fa fa-plus" style="margin-top: 15px" />
 					<p:confirmDialog
 						message="#{msg['listClubs.ask_delete_club']}"
 						header="#{msg['listClubs.delete_club']}" 
@@ -67,12 +80,13 @@
 						widgetVar="confirmation">
 						<p:commandButton value="#{msg['listClubs.yes']}"
 							oncomplete="PF('confirmation').hide()" ajax="false"
-                                                        actionListener="#{listClubsOfParticipantController
-                                                                          .commitDischarge()}" />
+							actionListener="#{listClubsController
+                                                                          .commitDeleteClub()}" />
 						<p:commandButton value="#{msg['listClubs.no']}"
 							onclick="PF('confirmation').hide()" />
 					</p:confirmDialog>
 				</h:form>
+                             
 			</ui:define>
 		</ui:composition>
 	</f:view>

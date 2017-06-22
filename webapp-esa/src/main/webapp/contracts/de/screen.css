@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #EAECEE;
+	background-color: #ffffff;
 	font-family: Verdana, sans-serif;
 	font-size: 0.9em;
 }
@@ -10,14 +10,15 @@ body {
 	padding: 0 20px 10px 20px;
 	border: none;
 	width: 70%; 
-	padding-top: 10px;
+	
        
 }
 #header {
 	border: none;
 	background: none;
 	padding: 0 ;
-	margin-bottom: 50px;
+        border-radius: 0;
+	
 }
 #footer {
    
@@ -52,4 +53,21 @@ td.ui-datagrid-column{
     border-style: none !important
     
 }
+.ui-widget-content{
+    background: #eeeeee;
+    color: #444444;
+}
 
+.myMenubar{
+    background: #888888 url("/webapp-esa/javax.faces.resource/images/ui-bg_highlight-hard_15_888888_1x100.png.xhtml?ln=primefaces-vader") 50% 50% repeat-x;
+    border: none;
+    font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+
+}
+
+.myMenuitem{
+    line-height: 30px;
+    color: green;
+    font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+
+}

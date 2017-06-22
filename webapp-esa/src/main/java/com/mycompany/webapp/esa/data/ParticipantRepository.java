@@ -31,9 +31,9 @@ public class ParticipantRepository implements Serializable{
     public ParticipantRepository() {
         try {
             getConnection();
-            this.prepstAdd = conn.prepareStatement("insert into participant(FIRST_NAME,LAST_NAME,EMAIL) values(?,?,?)");
-            this.prepstEnrole= conn.prepareStatement("insert into participant_club values(?,?)");
-            this.prepstDischarge= conn.prepareStatement("delete from participant_club where participant_id=? and club_id=?");
+            //this.prepstAdd = conn.prepareStatement("insert into participant(FIRSTNAME,LASTNAME,EMAIL) values(?,?,?)");
+           // this.prepstEnrole= conn.prepareStatement("insert into participant_club values(?,?)");
+            //this.prepstDischarge= conn.prepareStatement("delete from participant_club where participant_id=? and club_id=?");
         } catch (SQLException| ClassNotFoundException ex) {
             Logger.getLogger(ParticipantRepository.class.getName()).log(Level.SEVERE, null, ex);
         }

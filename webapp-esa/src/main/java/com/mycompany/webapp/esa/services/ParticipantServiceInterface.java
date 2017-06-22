@@ -8,6 +8,7 @@ package com.mycompany.webapp.esa.services;
 import com.mycompany.webapp.esa.model.Club;
 import com.mycompany.webapp.esa.model.Participant;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -21,4 +22,7 @@ public interface ParticipantServiceInterface {
     void addParticipant(Participant participant);
     void deleteParticipant(Participant participant);
     void updateParticipant(Participant participant);
+    Participant getParticipantByEmail(String email);
+    boolean isEnroled(Participant p, Club c);
+    Participant getParticipantById(int id);
 }

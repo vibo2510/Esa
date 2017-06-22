@@ -5,12 +5,15 @@
  */
 package com.mycompany.webapp.esa.services;
 
+import com.mycompany.webapp.esa.authentification.AuthenticationManager;
 import com.mycompany.webapp.esa.data.ClubRepository;
 import com.mycompany.webapp.esa.data.ParticipantRepository;
 import com.mycompany.webapp.esa.model.Club;
 import com.mycompany.webapp.esa.model.Participant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -33,6 +36,8 @@ public class ParticipantService implements ParticipantServiceInterface {
     ParticipantRepository participantRepository;
     @Inject
     EntityManager entityManager;
+    @Inject
+    AuthenticationManager am;
 
     public ParticipantService() {
 
@@ -61,24 +66,23 @@ public class ParticipantService implements ParticipantServiceInterface {
 
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
-
     public void doDischarge(Club club, Participant participant) {
 
         List<Participant> list = club.getParticipants();
         list.remove(participant);
         club.setParticipants(list);
-
         List<Club> listclub = participant.getClubs();
         listclub.remove(club);
         participant.setClubs(listclub);
-
+        System.out.println("Austragen");
         entityManager.merge(participant);
-        entityManager.merge(club);
+       entityManager.merge(club);
     }
 
     @Override
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    @Transactional(Transactional.TxType.REQUIRED)
     public void addParticipant(Participant participant) {
+        System.err.println(participant+" wurde hinzugefügt");
         entityManager.persist(participant);
     }
 
@@ -99,6 +103,30 @@ public class ParticipantService implements ParticipantServiceInterface {
         TypedQuery<Participant> query = entityManager.createNamedQuery(Participant.findAll, Participant.class);
         List<Participant> participants = query.getResultList();
         return participants;
+    }
+
+    @Override
+    public Participant getParticipantByEmail(String email) {
+        List<Participant> pl= entityManager.createNamedQuery("Participant.findByEmail").setParameter("email", email).getResultList();
+       return (Participant)pl.get(0);
+    }
+
+    @Override
+    public boolean isEnroled(Participant p, Club c) {
+   
+        System.out.println("Club1:"+c);
+        for(Club clubOfP: p.getClubs()){
+            if(clubOfP.getId()==c.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Participant getParticipantById(int id) {
+       List<Participant> pl= entityManager.createNamedQuery("Participant.findById").setParameter("id", id).getResultList();
+       return (Participant)pl.get(0);
     }
 
 }

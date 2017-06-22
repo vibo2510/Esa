@@ -19,4 +19,6 @@ public interface ClubServiceInterface {
     void addClub(Club club);
     void deleteClub(Club club);
     void updateClub(Club club);
+    Club getClubById(int id);
+  
 }

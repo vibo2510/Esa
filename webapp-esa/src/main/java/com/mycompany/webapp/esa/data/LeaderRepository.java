@@ -26,14 +26,17 @@ public class LeaderRepository implements Serializable{
     Connection conn;
     PreparedStatement prepstAdd;
     PreparedStatement prepstGet;
-    
+    PreparedStatement prepstGetAll;
+    PreparedStatement prepstUpdate;
 
     public LeaderRepository()  {
         
         try {
             getConnection();
-            this.prepstAdd = conn.prepareStatement("insert into leader(FIRST_NAME,LAST_NAME,EMAIL) values(?,?,?)");
-            this.prepstGet= conn.prepareStatement("select * from leader where id=?");
+            //this.prepstAdd = conn.prepareStatement("insert into leader(FIRST_NAME,LAST_NAME,EMAIL) values(?,?,?)");
+            //this.prepstGet= conn.prepareStatement("select * from leader where id=?");
+            //this.prepstGetAll= conn.prepareStatement("select * from leader");
+            //this.prepstUpdate= conn.prepareStatement("update leader set first_name=? last_name=? email=?  where id=?");
         } catch (ClassNotFoundException |SQLException ex) {
             Logger.getLogger(LeaderRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -88,5 +91,28 @@ public class LeaderRepository implements Serializable{
         
     }
     
+        public Leader getAllLeader(){
+        try {
+            
+        
+        ResultSet rs= prepstGetAll.executeQuery();
+        Leader leader =null;
+        while(rs.next()){
+            leader = new Leader();
+            leader.setId(rs.getInt("id"));
+            leader.setFirstname(rs.getString("FIRST_NAME"));
+            leader.setLastname(rs.getString("LAST_NAME"));
+            leader.setEmail(rs.getString("EMAIL"));
+            System.out.println(leader.getFirstname());
+           
+        }
+            
+        return leader;
+        } catch (SQLException ex) {
+            Logger.getLogger(LeaderRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
     
 }

@@ -8,8 +8,10 @@
         <f:view contracts="#{view.locale.language}">
             <ui:composition template="/template.xhtml">
                 <ui:define name="content">
-                    <h:form  >
-                        <p:commandButton value="#{msg['singleClub.button']}" update=":form:dataPartici" action="#{singleClubController.enroleToClub()}" style="float: right; width: 200px; height: 50px;"/>
+                
+                    <h:form id="myForm" >
+                        <p:commandButton value="#{msg['singleClub.button']}" update=":form:dataPartici" action="#{singleClubController.enroleToClub()}" style="float: right; width: 200px; height: 50px; margin-top: 15px" disabled="#{singleClubController.isEnroleable}" widgetVar="enroleButton"
+                                         onclick="PF('enroleButton').disable()"  />
                     </h:form>
                    
                     <h:graphicImage value="resources/img/#{singleClubController.title}.png" style="width: 30%"/>

@@ -8,9 +8,15 @@
         <f:view contracts="#{view.locale.language}">
             <ui:composition template="/template.xhtml">
                 <ui:define name="content">
+                    <p:outputPanel style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block;">
+                    <p:imageSwitch effect="fade" id="fadeEffect" speed="300">
+                        <ui:repeat value="#{indexController.images}" var="image" id="fadeEffectImages" >
+                            <p:graphicImage value="resources/img/#{image}" id="image" width="100%" />
+                        </ui:repeat>
+                    </p:imageSwitch>
 
                     <h:form id="form">
-                        
+
                         <p:dataGrid var="club" value="#{indexController.clubList}" columns="3" 
                                     rows="12" paginator="true" id="clubs"
                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -22,14 +28,16 @@
 
                             <p:panel header="#{club.title}" style="text-align:center">
                                 <h:panelGrid columns="3" style="width:100%;"  >
-                                    <h:commandButton actionListener="#{singleClubController.setClub(club)}" action="/singleClub.xhtml" 
-                                                     image="resources/img/#{club.title}.png" style="width: 100%; vertical-align: top"  />
-                                    
+                                    <h:commandButton  action="/singleClub.xhtml" 
+                                                     image="resources/img/#{club.title}.png" style="width: 100%; vertical-align: top" 
+                                                     ><f:param name="club_id" value="#{club.id}"/></h:commandButton>
+
                                 </h:panelGrid>
                             </p:panel>
 
                         </p:dataGrid>
                     </h:form>
+                    </p:outputPanel>
                 </ui:define>
             </ui:composition>
         </f:view>

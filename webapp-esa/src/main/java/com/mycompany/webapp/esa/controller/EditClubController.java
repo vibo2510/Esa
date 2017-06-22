@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
 import javax.servlet.annotation.MultipartConfig;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -30,7 +31,7 @@ import org.primefaces.model.UploadedFile;
 public class EditClubController implements Serializable {
 	private static final long serialVersionUID = 2815796004558360299L;
 
-
+        @Inject EntityManager entityManager;
 	@Inject
 	private ClubProducer clubProducer;
         @Inject 
@@ -44,13 +45,16 @@ public class EditClubController implements Serializable {
        
 	public String doSave() {
                     //Solange noch keine Login vorhanden, wird hier Standard-Leader setzten
-                    Leader leader = new Leader();
+                    /*Leader leader = new Leader();
                     leader.setId(1);
                     leader.setFirstname("Hans");
                     leader.setLastname("Wurst");
                     leader.setEmail("hw@web.de");
+                    */
                     
-                    clubProducer.getSelectedClub().setLeader(leader);
+                                     
+                    
+                    //clubProducer.getSelectedClub().setLeader(entityManager.find(Leader.class, 1));
 		if (clubProducer.isAddMode()) {
 
                     

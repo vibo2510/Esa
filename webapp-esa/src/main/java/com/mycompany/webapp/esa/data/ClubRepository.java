@@ -39,18 +39,18 @@ public class ClubRepository implements Serializable{
 
 
     public ClubRepository() throws SQLException, ClassNotFoundException {
-        getConnection();
+/*        getConnection();
         this.prepstAdd = conn.prepareStatement("insert into club(title,dayofweek,starttime,endtime,description,leader_id,maxParticipants,room) values(?,?,?,?,?,?,?,?)");
         this.prepstDelete= conn.prepareStatement("delete from club where id=?");
         this.prepstUpdate = conn.prepareStatement("update club set title = ?,dayofweek = ?,starttime=?,endtime=?, description= ?, leader_id=?, maxparticipants=?,room=? where id = ?");
-        this. stAllClubs = conn.createStatement();
+        this.stAllClubs = conn.createStatement();
         this.prepstLeaderClubs = conn.prepareStatement("select * from club where LEADER_ID = ?");
-        this.prepstParticiClubs = conn.prepareStatement("select club.id, club.title, club.dayofweek, club.starttime, club.endtime, club.description, club.leader_id,club.maxparticipants,club.room \n" +
+      this.prepstParticiClubs = conn.prepareStatement("select club.id, club.title, club.dayofweek, club.starttime, club.endtime, club.description, club.leader_id,club.maxparticipants,club.room \n" +
                                                         "from club inner join participant_club on club.id=participant_club.club_id\n" +
                                                         "where participant_club.participant_id=?");
         this.prepstParticiOfClub = conn.prepareStatement("select participant.id, participant.first_name, participant.last_name, participant.email from participant \n" +
                                                         "inner join participant_club on participant.id=participant_club.participant_id\n" +
-                                                        "where PARTICIPANT_CLUB.CLUB_ID= ?");
+                                                        "where PARTICIPANT_CLUB.CLUB_ID= ?");*/
     }
     
 
@@ -221,32 +221,6 @@ public class ClubRepository implements Serializable{
      
      
      
-     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        ClubRepository cr= new ClubRepository();
-
-        Club club = new Club();
-        club.setId(20);
-        club.setTitle("Bowling");
-        java.util.Date start1= new java.util.Date();
-        start1.setMinutes(30);
-        start1.setHours(21);
-        club.setStarttime(start1);
-        club.setEndtime(start1);
-        club.setDayOfWeek(Club.DayOfWeek.MONDAY);
-        club.setDescription("svndjnsdvjjsdvn");
-        club.setMaxParticipants(10);
-        Leader l= new Leader();
-        l.setId(1);
-        l.setFirstname("Dieter");
-        l.setLastname("Kramer");
-        l.setEmail("ab@web.de");
-        club.setLeader(l);
-        club.setRoom("Aula");
-        cr.addClub(club);
-
-        System.out.println("DB ausgeführt");
-        
-           
-    }
+     
 
     }

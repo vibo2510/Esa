@@ -1,0 +1,138 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <f:view contracts="#{view.locale.language}">
+            <ui:composition template="/template.xhtml">
+                <ui:define name="content">
+                    <p:outputPanel style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block;">
+                        <p:graphicImage value="/resources/img/editClubHeader.png" id="image" width="100%" />
+
+                        <h:form enctype="multipart/form-data">
+                            <p:panel id="panel" styleClass="transparent">
+                                <p:messages id="msgs" />
+                                <p:panelGrid columns="4" styleClass="transparent" >
+                                    <p:outputLabel value="#{msg['editClub.title']}:">
+                                    </p:outputLabel>
+                                    <p:spacer></p:spacer>
+                                    <p:inputText id="a_title"
+                                                 value="#{clubProducer.selectedClub.title}" required="true">
+                                        <f:passThroughAttribute name="placeholder"
+                                                                value="#{msg['editClub.placeholder_title']}" 
+                                                                />
+                                        <f:validateLength minimum="5" maximum = "30"/>
+
+                                    </p:inputText>
+                                    <p:message for="a_title" display="icon" />
+                                    <p:outputLabel value=
+                                                   "#{msg['editClub.day_of_week']}:">
+                                    </p:outputLabel>
+                                    <p:spacer></p:spacer>
+                                    <p:selectOneMenu id="a_dayOfWeek" value="#{clubProducer.selectedClub.dayOfWeek}" style="width:125px">
+                                        <f:selectItem itemLabel="#{msg['editClub.monday']}" itemValue="MONDAY" />
+                                        <f:selectItem itemLabel="#{msg['editClub.tuesday']}" itemValue="TUESDAY" />
+                                        <f:selectItem itemLabel="#{msg['editClub.wednesday']}" itemValue="WEDNESDAY" />
+                                        <f:selectItem itemLabel="#{msg['editClub.thursday']}" itemValue="THURSDAY" />
+                                        <f:selectItem itemLabel="#{msg['editClub.friday']}" itemValue="FRIDAY" />
+                                        <f:selectItem itemLabel="#{msg['editClub.saturday']}" itemValue="SATURDAY" />
+                                        <f:selectItem itemLabel="#{msg['editClub.sunday']}" itemValue="SUNDAY" />
+                                    </p:selectOneMenu>
+
+                                    <p:message for="a_dayOfWeek" display="icon" />
+                                    <p:outputLabel value=
+                                                   "#{msg['editClub.start']}:">
+                                    </p:outputLabel>
+                                    <p:spacer></p:spacer>
+                                    <p:inputText id="a_start"
+                                                 value=
+                                                 "#{clubProducer
+                                                    .selectedClub.starttime}" required="true">
+                                        <f:passThroughAttribute name="placeholder"
+                                                                value="#{msg['editClub.placeholder_start']}" 
+                                                                />
+                                        <f:convertDateTime pattern="HH:mm" />
+
+                                    </p:inputText>
+
+                                    <p:message for="a_start" display="icon" />
+                                    <p:outputLabel value=
+                                                   "#{msg['editClub.end']}:">
+                                    </p:outputLabel>
+                                    <p:spacer></p:spacer>
+                                    <p:inputText id="a_end"
+                                                 value=
+                                                 "#{clubProducer.selectedClub.endtime}" required="true">
+                                        <f:passThroughAttribute name="placeholder"
+                                                                value="#{msg['editClub.placeholder_end']}" 
+                                                                />
+                                        <f:convertDateTime  pattern="HH:mm"/>
+
+                                    </p:inputText>
+
+                                    <p:message for="a_end" display="icon"/>
+                                    <p:outputLabel value=
+                                                   "#{msg['editClub.max_participants']}:">
+                                    </p:outputLabel>
+                                    <p:spacer></p:spacer>
+                                    <p:inputText id="a_maxParticipants"
+                                                 value=
+                                                 "#{clubProducer.selectedClub.maxParticipants}" required="true">
+
+                                        <f:passThroughAttribute name="placeholder"
+                                                                value="#{msg['editClub.placeholder_max_participants']}" 
+                                                                />
+                                        <f:validateLongRange maximum="100" minimum="10" />
+                                    </p:inputText>
+
+                                    <p:message for="a_maxParticipants" display="icon"/>
+                                    <p:outputLabel value=
+                                                   "#{msg['editClub.room']}:">
+                                    </p:outputLabel>
+                                    <p:spacer></p:spacer>
+                                    <p:inputText id="a_room"
+                                                 value=
+                                                 "#{clubProducer.selectedClub.room}" required="true">
+                                        <f:passThroughAttribute name="placeholder"
+                                                                value="#{msg['editClub.placeholder_room']}" 
+                                                                />
+                                    </p:inputText>
+
+                                    <p:message for="a_room" display="icon" />
+                                    <p:outputLabel value=
+                                                   "#{msg['editClub.description']}:">
+                                    </p:outputLabel>
+                                    <p:spacer></p:spacer>
+                                    <p:inputTextarea 
+                                        id="a_description" 
+                                        rows="5" 
+                                        cols="30" 
+                                        readonly="false" 
+                                        value="#{clubProducer.selectedClub.description}" required="true"
+                                        />
+                                    <p:message for="a_description" display="icon"/>
+
+                                    <p:fileUpload value="#{editClubController.file}" mode="simple" skinSimple="true" label="#{msg['editClub.choose']}" style="margin-left: 0"/>
+                                    <p:spacer></p:spacer>
+                                    <p:commandButton value="#{msg['editClub.submit']}" ajax="false" actionListener="#{editClubController.uploadPicture}" disabled="false" />
+                                    <p:spacer></p:spacer>
+                                    
+                                    <p:commandButton value="#{msg['editClub.save']}"
+
+                                                     action="#{editClubController.doSave}"
+                                                     update="panel"  />
+                                    <p:spacer></p:spacer>
+                                    <p:commandButton value="#{msg['editClub.cancel']}"
+                                                     immediate="true" action=
+                                                     "#{editClubController.doCancel}"   />
+                                </p:panelGrid>
+
+                            </p:panel>
+                        </h:form>
+                    </p:outputPanel>
+                </ui:define>
+            </ui:composition>
+        </f:view>
+    </body>
+</html> 

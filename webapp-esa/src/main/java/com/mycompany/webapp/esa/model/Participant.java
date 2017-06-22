@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
@@ -22,64 +23,21 @@ import javax.persistence.Version;
  * @author Viktoria Bock
  */
 @Entity
-@NamedQuery(name = "Participant.findAll", query = "SELECT p FROM Participant p ORDER BY p.id")
-public class Participant implements Serializable {
+@NamedQueries({
+@NamedQuery(name = "Participant.findById", query = "SELECT p FROM Participant p WHERE p.id= :id"),
+@NamedQuery(name = "Participant.findAll", query = "SELECT p FROM Participant p ORDER BY p.id"),
+@NamedQuery(name="Participant.findByEmail", query ="SELECT p FROM Participant p WHERE p.email = :email")})
+public class Participant extends AppUser implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private int id;
-    @Version
-    private Long version;
-    private String firstname;
-    private String lastname;
-    private String email;
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "participants")
     private List<Club> clubs;
 
     public static final String findAll = "Participant.findAll";
+    public static final String findByEmail = "Participant.findByEmail";
+    public static final String findById = "Participant.findById";
 
     public Participant() {
 
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    protected void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public List<Club> getClubs() {
