@@ -9,11 +9,13 @@ package com.mycompany.webapp.esa.data;
 import com.mycompany.webapp.esa.model.Club;
 import com.mycompany.webapp.esa.model.Participant;
 import java.io.Serializable;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 
 /**
@@ -22,72 +24,67 @@ import javax.inject.Named;
  */
 
 @Named
-@RequestScoped
+@Stateless
 public class ParticipantRepository implements Serializable{
-    Connection conn;
-    PreparedStatement prepstAdd;
-    PreparedStatement prepstEnrole;
-    PreparedStatement prepstDischarge;
-    public ParticipantRepository() {
-        try {
-            getConnection();
-            //this.prepstAdd = conn.prepareStatement("insert into participant(FIRSTNAME,LASTNAME,EMAIL) values(?,?,?)");
-           // this.prepstEnrole= conn.prepareStatement("insert into participant_club values(?,?)");
-            //this.prepstDischarge= conn.prepareStatement("delete from participant_club where participant_id=? and club_id=?");
-        } catch (SQLException| ClassNotFoundException ex) {
-            Logger.getLogger(ParticipantRepository.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-   
+    @Inject
+    EntityManager entityManager;
     
-    public void getConnection() throws SQLException, ClassNotFoundException{
-    Class.forName("org.apache.derby.jdbc.ClientDriver");
-    String dbUrl = "jdbc:derby://localhost:1527/ClubOrgaDB";
-    conn=DriverManager.getConnection(dbUrl,"rovi", "123");
-    
-    }
-    
-    public boolean addParticipant(Participant participant){
-        
-        try {
-            prepstAdd.setString(1, participant.getFirstname());
-            prepstAdd.setString(2, participant.getLastname());
-            prepstAdd.setString(3, participant.getEmail());
-            prepstAdd.execute();
-            return true;
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public void doEnroleToClub(Participant participant,Club club){
+        List<Participant> list = club.getParticipants();
+        list.add(participant);
+        club.setParticipants(list);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ParticipantRepository.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-                
+        List<Club> listclub = participant.getClubs();
+        listclub.add(club);
+        participant.setClubs(listclub);
+
+        entityManager.merge(participant);
+        entityManager.merge(club);
     }
     
-    public boolean enroleToClub(Club club, Participant participant){
-        try{
-            prepstEnrole.setInt(1,club.getId());
-            prepstEnrole.setInt(2,participant.getId() );
-            prepstEnrole.execute();
-            return true;
-        }catch(SQLException ex){
-            return false;
-        }
-        
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public void doDischargeFromClub(Participant participant, Club club){
+        List<Participant> list = club.getParticipants();
+        list.remove(participant);
+        club.setParticipants(list);
+        List<Club> listclub = participant.getClubs();
+        listclub.remove(club);
+        participant.setClubs(listclub);
+        System.out.println("Austragen");
+        entityManager.merge(participant);
+        entityManager.merge(club);
     }
     
-    public boolean dischargeClub(Club club,Participant participant){
-        try {
-            prepstDischarge.setInt(1, club.getId());
-            prepstDischarge.setInt(2,participant.getId());
-            prepstDischarge.execute();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(ParticipantRepository.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
+    @Transactional(Transactional.TxType.REQUIRED)
+    public void doAddParticipant(Participant participant){
+        System.err.println(participant+" wurde hinzugefügt");
+        entityManager.persist(participant); 
     }
     
+    public void doDeleteParticipant(Participant participant){
+        Participant dbParticipant = entityManager.find(Participant.class, participant.getId());
+        entityManager.remove(dbParticipant);
+    }
     
+    public void doUpdateParticipant(Participant participant){
+        entityManager.merge(participant);
+    }
+    
+    public List<Participant> doGetAllParticipants(){
+        TypedQuery<Participant> query = entityManager.createNamedQuery(Participant.findAll, Participant.class);
+        List<Participant> participants = query.getResultList();
+        return participants;
+    }
+    
+    public Participant doGetParticipantByEmail(String email){
+       List<Participant> pl= entityManager.createNamedQuery("Participant.findByEmail").setParameter("email", email).getResultList();
+       return (Participant)pl.get(0);
+    }
+    
+    public Participant doGetParticipantByID(int id){
+       List<Participant> pl= entityManager.createNamedQuery("Participant.findById").setParameter("id", id).getResultList();
+       return (Participant)pl.get(0);
+    }
     
 }

@@ -107,10 +107,7 @@
     </filter-mapping>
     
     <!--Primefaces Themes-->
-    <context-param>
-        <param-name>primefaces.THEME</param-name>
-        <param-value>vader</param-value>
-    </context-param>
+    
     
     
     <!-- Authentifizierung-->

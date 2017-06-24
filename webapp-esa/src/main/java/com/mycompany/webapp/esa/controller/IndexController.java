@@ -56,8 +56,8 @@ public class IndexController implements Serializable {
             am.setCurrentUserId();
             
         }
-    /*   
-    Participant romina=new Participant();
+       
+    /*Participant romina=new Participant();
     romina.setEmail("romina.herbst@hs-furtwangen.de");
     romina.setFirstname("Romina");
     romina.setLastname("Herbst");
@@ -73,15 +73,11 @@ public class IndexController implements Serializable {
     viktoria.setEmail("viktoria.bock@hs-furtwangen.de");
         viktoria.setClubs(new ArrayList<Club>());
     leaderService.addLeader(viktoria);
-        System.out.println("loggedin: "+am.isLoggedIn());*/
+        System.out.println("loggedin: "+am.isLoggedIn());
         
         //Leader ll= leaderService.getLeaderByEmail("viktoria.bock@hs-furtwangen.de");
        
-        //System.out.println("Vorname:"+ll.getLastname());
-        
-        
-    
-        
+        //System.out.println("Vorname:"+ll.getLastname());*/
 
         images = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {

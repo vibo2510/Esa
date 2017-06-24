@@ -8,12 +8,13 @@ package com.mycompany.webapp.esa.data;
 
 import com.mycompany.webapp.esa.model.Leader;
 import java.io.Serializable;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.enterprise.context.SessionScoped;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 
 /**
@@ -21,98 +22,30 @@ import javax.inject.Named;
  * @author Viktoria Bock
  */
 @Named
-@SessionScoped
+@Stateless
 public class LeaderRepository implements Serializable{
-    Connection conn;
-    PreparedStatement prepstAdd;
-    PreparedStatement prepstGet;
-    PreparedStatement prepstGetAll;
-    PreparedStatement prepstUpdate;
-
-    public LeaderRepository()  {
-        
-        try {
-            getConnection();
-            //this.prepstAdd = conn.prepareStatement("insert into leader(FIRST_NAME,LAST_NAME,EMAIL) values(?,?,?)");
-            //this.prepstGet= conn.prepareStatement("select * from leader where id=?");
-            //this.prepstGetAll= conn.prepareStatement("select * from leader");
-            //this.prepstUpdate= conn.prepareStatement("update leader set first_name=? last_name=? email=?  where id=?");
-        } catch (ClassNotFoundException |SQLException ex) {
-            Logger.getLogger(LeaderRepository.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-   
+    @Inject
+    private EntityManager entityManager;
     
-    public void getConnection() throws SQLException, ClassNotFoundException{
-    Class.forName("org.apache.derby.jdbc.ClientDriver");
-    String dbUrl = "jdbc:derby://localhost:1527/ClubOrgaDB";
-    conn=DriverManager.getConnection(dbUrl,"rovi", "123");
-    
+    public List<Leader> doGetAllLeaders(){
+        TypedQuery<Leader> query = entityManager.createNamedQuery(Leader.findAll, Leader.class);
+        List<Leader> leaders = query.getResultList();
+        return leaders;
     }
     
-    public boolean addLeader(Leader leader){
-        
-        try {
-   
-            prepstAdd.setString(1, leader.getFirstname());
-            prepstAdd.setString(2, leader.getLastname());
-            prepstAdd.setString(3, leader.getEmail());
-            prepstAdd.execute();
-            return true;
-
-        } catch (SQLException  ex) {
-            Logger.getLogger(LeaderRepository.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-                
+    public Leader doGetLeaderByEmail(String email){
+         List<Leader> ll= entityManager.createNamedQuery("Leader.findByEmail").setParameter("email", email).getResultList();
+        return (Leader)ll.get(0);
     }
     
-    public Leader getLeaderById(int id){
-        try {
-            
-            prepstGet.setInt(1,id);
-        
-        ResultSet rs= prepstGet.executeQuery();
-        Leader leader =null;
-        while(rs.next()){
-            leader = new Leader();
-            leader.setId(id);
-            leader.setFirstname(rs.getString("FIRST_NAME"));
-            leader.setLastname(rs.getString("LAST_NAME"));
-            leader.setEmail(rs.getString("EMAIL"));
-           
-        }
-        return leader;
-        } catch (SQLException ex) {
-            Logger.getLogger(LeaderRepository.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public void doAddLeader(Leader leader){
+         entityManager.persist(leader);
     }
     
-        public Leader getAllLeader(){
-        try {
-            
-        
-        ResultSet rs= prepstGetAll.executeQuery();
-        Leader leader =null;
-        while(rs.next()){
-            leader = new Leader();
-            leader.setId(rs.getInt("id"));
-            leader.setFirstname(rs.getString("FIRST_NAME"));
-            leader.setLastname(rs.getString("LAST_NAME"));
-            leader.setEmail(rs.getString("EMAIL"));
-            System.out.println(leader.getFirstname());
-           
-        }
-            
-        return leader;
-        } catch (SQLException ex) {
-            Logger.getLogger(LeaderRepository.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        
+    public Leader doGetLeaderByID(int id){
+       List<Leader> ll= entityManager.createNamedQuery("Leader.findById").setParameter("id", id).getResultList();
+       return (Leader)ll.get(0);
     }
     
 }

@@ -50,7 +50,9 @@ public class SingleClubController implements Serializable{
          //System.out.println("parameter Int******:"+ club_id);
          setClub(clubService.getClubById(club_id));
          if(am.getCurrentUserId()!=null){
-        user= (Participant) participantService.getParticipantById(am.getCurrentUserId());
+             if(am.isLeader()==false){
+            user= (Participant) participantService.getParticipantById(am.getCurrentUserId());
+             }
          }
         isEnroleable=isEnabeldToEnrole();
     }

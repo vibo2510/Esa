@@ -5,18 +5,15 @@
  */
 package com.mycompany.webapp.esa.services;
 
+import com.mycompany.webapp.esa.data.LeaderRepository;
 import com.mycompany.webapp.esa.model.Leader;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+
 
 /**
  *
@@ -27,30 +24,27 @@ import javax.transaction.Transactional;
 public class LeaderService implements Serializable, LeaderServiceInterface {
     @Inject
     private EntityManager entityManager;
+    @Inject
+    private LeaderRepository lr;        
 
     @Override
     public List<Leader> getAllLeaders() {
-        TypedQuery<Leader> query = entityManager.createNamedQuery(Leader.findAll, Leader.class);
-        List<Leader> leaders = query.getResultList();
-        return leaders;
+        return lr.doGetAllLeaders();
     }
 
     @Override
     public Leader getLeaderByEmail(String email) {
-        List<Leader> ll= entityManager.createNamedQuery("Leader.findByEmail").setParameter("email", email).getResultList();
-        return (Leader)ll.get(0);
+       return lr.doGetLeaderByEmail(email);
     }
 
     @Override
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void addLeader(Leader leader) {
-        entityManager.persist(leader);
+       lr.doAddLeader(leader);
     }
 
     @Override
     public Leader getLeaderById(int id) {
-        List<Leader> ll= entityManager.createNamedQuery("Leader.findById").setParameter("id", id).getResultList();
-        return (Leader)ll.get(0);
+        return lr.doGetLeaderByID(id);
     }
    
 

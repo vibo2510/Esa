@@ -5,22 +5,15 @@
  */
 package com.mycompany.webapp.esa.services;
 
-import com.mycompany.webapp.esa.authentification.AuthenticationManager;
-import com.mycompany.webapp.esa.data.ClubRepository;
+
 import com.mycompany.webapp.esa.data.ParticipantRepository;
 import com.mycompany.webapp.esa.model.Club;
 import com.mycompany.webapp.esa.model.Participant;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+
 
 /**
  *
@@ -31,13 +24,8 @@ import javax.transaction.Transactional;
 public class ParticipantService implements ParticipantServiceInterface {
 
     @Inject
-    ClubRepository clubRepository;
-    @Inject
     ParticipantRepository participantRepository;
-    @Inject
-    EntityManager entityManager;
-    @Inject
-    AuthenticationManager am;
+    
 
     public ParticipantService() {
 
@@ -49,66 +37,42 @@ public class ParticipantService implements ParticipantServiceInterface {
     }
 
     @Override
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void enroleToClub(Participant participant, Club club) {
-        List<Participant> list = club.getParticipants();
-        list.add(participant);
-        club.setParticipants(list);
-
-        List<Club> listclub = participant.getClubs();
-        listclub.add(club);
-        participant.setClubs(listclub);
-
-        entityManager.merge(participant);
-        entityManager.merge(club);
+        participantRepository.doEnroleToClub(participant, club);
 
     }
 
     @Override
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void doDischarge(Club club, Participant participant) {
 
-        List<Participant> list = club.getParticipants();
-        list.remove(participant);
-        club.setParticipants(list);
-        List<Club> listclub = participant.getClubs();
-        listclub.remove(club);
-        participant.setClubs(listclub);
-        System.out.println("Austragen");
-        entityManager.merge(participant);
-       entityManager.merge(club);
+        participantRepository.doDischargeFromClub(participant, club);
     }
 
     @Override
-    @Transactional(Transactional.TxType.REQUIRED)
     public void addParticipant(Participant participant) {
-        System.err.println(participant+" wurde hinzugefügt");
-        entityManager.persist(participant);
+        participantRepository.doAddParticipant(participant);
     }
 
 
 
     @Override
     public void deleteParticipant(Participant participant) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        participantRepository.doDeleteParticipant(participant);
     }
 
     @Override
     public void updateParticipant(Participant participant) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        participantRepository.doUpdateParticipant(participant);
     }
 
     @Override
     public List<Participant> getAllParticipants() {
-        TypedQuery<Participant> query = entityManager.createNamedQuery(Participant.findAll, Participant.class);
-        List<Participant> participants = query.getResultList();
-        return participants;
+        return participantRepository.doGetAllParticipants();
     }
 
     @Override
     public Participant getParticipantByEmail(String email) {
-        List<Participant> pl= entityManager.createNamedQuery("Participant.findByEmail").setParameter("email", email).getResultList();
-       return (Participant)pl.get(0);
+       return participantRepository.doGetParticipantByEmail(email);
     }
 
     @Override
@@ -125,8 +89,7 @@ public class ParticipantService implements ParticipantServiceInterface {
 
     @Override
     public Participant getParticipantById(int id) {
-       List<Participant> pl= entityManager.createNamedQuery("Participant.findById").setParameter("id", id).getResultList();
-       return (Participant)pl.get(0);
+       return participantRepository.doGetParticipantByID(id);
     }
 
 }

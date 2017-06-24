@@ -59,11 +59,20 @@ public class AuthenticationManager implements Serializable {
             System.out.println("email: " + email);
             if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("Participant")) {
                 currentUserId = participantService.getParticipantByEmail(email).getId();
+                System.out.println("*************Participant***");
             } else if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("Leader")) {
                 currentUserId = leaderService.getLeaderByEmail(email).getId();
             }
+            
+            
+           /*if("romina.herbst@hs-furtwangen.de".equals(email)){
+               currentUserId = participantService.getParticipantByEmail(email).getId();
+           }else {
+               currentUserId = leaderService.getLeaderByEmail(email).getId();
+           }*/
+            
         
-
+           
         System.out.println("*************AUTH***");
     }
 
