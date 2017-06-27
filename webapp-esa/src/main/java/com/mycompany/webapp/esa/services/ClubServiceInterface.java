@@ -6,6 +6,7 @@
 package com.mycompany.webapp.esa.services;
 
 import com.mycompany.webapp.esa.model.Club;
+import com.mycompany.webapp.esa.model.Leader;
 import com.mycompany.webapp.esa.model.Participant;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public interface ClubServiceInterface {
     List<Club> getAllClubs();
     List<Club> getAllClubsOfParticipant(Participant participant);
-    void addClub(Club club);
+    void addClub(Club club,int leader);
     void deleteClub(Club club);
     void updateClub(Club club);
     Club getClubById(int id);

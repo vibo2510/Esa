@@ -5,6 +5,7 @@
  */
 package com.mycompany.webapp.esa.services;
 
+
 import com.mycompany.webapp.esa.model.Leader;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public interface LeaderServiceInterface {
     List<Leader> getAllLeaders();
-    Leader getLeaderByEmail(String email);
+    Leader getLeaderByEmail(String email) ;
     void addLeader(Leader leader);
-    Leader getLeaderById(int id);
+    Leader getLeaderById(int id) ;
 }

@@ -71,3 +71,10 @@ td.ui-datagrid-column{
     font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
 
 }
+
+.twenty-percent{
+    width: 20%;
+}
+.seventy-percent{
+    width: 70%;
+}

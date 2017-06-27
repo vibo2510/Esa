@@ -18,7 +18,7 @@
                                     </p:outputLabel>
                                     <p:spacer></p:spacer>
                                     <p:inputText id="a_title"
-                                                 value="#{clubProducer.selectedClub.title}" required="true">
+                                                 value="#{editClubController.selectedClub.title}" required="true">
                                         <f:passThroughAttribute name="placeholder"
                                                                 value="#{msg['editClub.placeholder_title']}" 
                                                                 />
@@ -30,7 +30,7 @@
                                                    "#{msg['editClub.day_of_week']}:">
                                     </p:outputLabel>
                                     <p:spacer></p:spacer>
-                                    <p:selectOneMenu id="a_dayOfWeek" value="#{clubProducer.selectedClub.dayOfWeek}" style="width:125px">
+                                    <p:selectOneMenu id="a_dayOfWeek" value="#{editClubController.selectedClub.dayOfWeek}" style="width:125px">
                                         <f:selectItem itemLabel="#{msg['editClub.monday']}" itemValue="MONDAY" />
                                         <f:selectItem itemLabel="#{msg['editClub.tuesday']}" itemValue="TUESDAY" />
                                         <f:selectItem itemLabel="#{msg['editClub.wednesday']}" itemValue="WEDNESDAY" />
@@ -47,7 +47,7 @@
                                     <p:spacer></p:spacer>
                                     <p:inputText id="a_start"
                                                  value=
-                                                 "#{clubProducer
+                                                 "#{editClubController
                                                     .selectedClub.starttime}" required="true">
                                         <f:passThroughAttribute name="placeholder"
                                                                 value="#{msg['editClub.placeholder_start']}" 
@@ -63,7 +63,7 @@
                                     <p:spacer></p:spacer>
                                     <p:inputText id="a_end"
                                                  value=
-                                                 "#{clubProducer.selectedClub.endtime}" required="true">
+                                                 "#{editClubController.selectedClub.endtime}" required="true">
                                         <f:passThroughAttribute name="placeholder"
                                                                 value="#{msg['editClub.placeholder_end']}" 
                                                                 />
@@ -78,7 +78,7 @@
                                     <p:spacer></p:spacer>
                                     <p:inputText id="a_maxParticipants"
                                                  value=
-                                                 "#{clubProducer.selectedClub.maxParticipants}" required="true">
+                                                 "#{editClubController.selectedClub.maxParticipants}" required="true">
 
                                         <f:passThroughAttribute name="placeholder"
                                                                 value="#{msg['editClub.placeholder_max_participants']}" 
@@ -93,7 +93,7 @@
                                     <p:spacer></p:spacer>
                                     <p:inputText id="a_room"
                                                  value=
-                                                 "#{clubProducer.selectedClub.room}" required="true">
+                                                 "#{editClubController.selectedClub.room}" required="true">
                                         <f:passThroughAttribute name="placeholder"
                                                                 value="#{msg['editClub.placeholder_room']}" 
                                                                 />
@@ -109,7 +109,7 @@
                                         rows="5" 
                                         cols="30" 
                                         readonly="false" 
-                                        value="#{clubProducer.selectedClub.description}" required="true"
+                                        value="#{editClubController.selectedClub.description}" required="true"
                                         />
                                     <p:message for="a_description" display="icon"/>
 

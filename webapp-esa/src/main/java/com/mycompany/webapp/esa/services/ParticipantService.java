@@ -37,8 +37,15 @@ public class ParticipantService implements ParticipantServiceInterface {
     }
 
     @Override
-    public void enroleToClub(Participant participant, Club club) {
+    public boolean enroleToClub(Participant participant, Club club){
+        List<Participant> list = club.getParticipants();
+        for (Participant p: list){
+            if(p.equals(participant)){
+                return false;
+            }
+        }
         participantRepository.doEnroleToClub(participant, club);
+        return true;
 
     }
 

@@ -8,12 +8,8 @@ package com.mycompany.webapp.esa.controller;
 import com.mycompany.webapp.esa.authentification.AuthenticationManager;
 import com.mycompany.webapp.esa.model.AppUser;
 import com.mycompany.webapp.esa.services.LeaderServiceInterface;
-import com.mycompany.webapp.esa.services.ParticipantServiceInterface;
 import java.io.Serializable;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 

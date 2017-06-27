@@ -34,7 +34,9 @@ public class LeaderService implements Serializable, LeaderServiceInterface {
 
     @Override
     public Leader getLeaderByEmail(String email) {
-       return lr.doGetLeaderByEmail(email);
+            return lr.doGetLeaderByEmail(email);
+       
+       
     }
 
     @Override
@@ -44,7 +46,9 @@ public class LeaderService implements Serializable, LeaderServiceInterface {
 
     @Override
     public Leader getLeaderById(int id) {
-        return lr.doGetLeaderByID(id);
+       
+            return lr.doGetLeaderByID(id);
+       
     }
    
 

@@ -16,7 +16,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -87,10 +86,6 @@ public class IndexController implements Serializable {
 
     public List<Club> getClubList() {
 
-        /* String email= (String) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
-       System.out.println(email);
-       System.out.println("**********************************************");*/
-        
         return ClubList;
     }
 

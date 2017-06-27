@@ -27,7 +27,7 @@ import javax.transaction.Transactional;
 @Stateless
 public class ParticipantRepository implements Serializable{
     @Inject
-    EntityManager entityManager;
+    private EntityManager entityManager;
     
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void doEnroleToClub(Participant participant,Club club){

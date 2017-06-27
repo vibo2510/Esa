@@ -13,7 +13,7 @@ import com.mycompany.webapp.esa.services.ParticipantServiceInterface;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
+
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -65,13 +65,6 @@ public class AuthenticationManager implements Serializable {
             }
             
             
-           /*if("romina.herbst@hs-furtwangen.de".equals(email)){
-               currentUserId = participantService.getParticipantByEmail(email).getId();
-           }else {
-               currentUserId = leaderService.getLeaderByEmail(email).getId();
-           }*/
-            
-        
            
         System.out.println("*************AUTH***");
     }

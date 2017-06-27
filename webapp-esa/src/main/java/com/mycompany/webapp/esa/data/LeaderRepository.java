@@ -25,27 +25,36 @@ import javax.transaction.Transactional;
 @Stateless
 public class LeaderRepository implements Serializable{
     @Inject
-    private EntityManager entityManager;
+    private EntityManager em;
     
     public List<Leader> doGetAllLeaders(){
-        TypedQuery<Leader> query = entityManager.createNamedQuery(Leader.findAll, Leader.class);
+        TypedQuery<Leader> query = em.createNamedQuery(Leader.findAll, Leader.class);
         List<Leader> leaders = query.getResultList();
         return leaders;
     }
     
     public Leader doGetLeaderByEmail(String email){
-         List<Leader> ll= entityManager.createNamedQuery("Leader.findByEmail").setParameter("email", email).getResultList();
-        return (Leader)ll.get(0);
+         List<Leader> ll= em.createNamedQuery("Leader.findByEmail").setParameter("email", email).getResultList();
+        if(ll.size()>0){
+         return (Leader)ll.get(0);
+        }
+        return null;
     }
     
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void doAddLeader(Leader leader){
-         entityManager.persist(leader);
+         em.persist(leader);
     }
     
     public Leader doGetLeaderByID(int id){
-       List<Leader> ll= entityManager.createNamedQuery("Leader.findById").setParameter("id", id).getResultList();
+       List<Leader> ll= em.createNamedQuery("Leader.findById").setParameter("id", id).getResultList();
+       if(ll.size()>0){
        return (Leader)ll.get(0);
+       }
+       return null;
     }
     
+    public void doRefreshLeader(Leader leader){
+        em.refresh(leader);
+    }
 }

@@ -5,6 +5,7 @@
  */
 package com.mycompany.webapp.esa.services;
 
+
 import com.mycompany.webapp.esa.model.Club;
 import com.mycompany.webapp.esa.model.Participant;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Set;
 public interface ParticipantServiceInterface {
     List<Participant> getAllParticipants();
     List<Participant> getAllParticipantsOfClub(Club club);
-    void enroleToClub(Participant participant, Club club);
+    boolean enroleToClub(Participant participant, Club club);
     void doDischarge(Club club, Participant participant);
     void addParticipant(Participant participant);
     void deleteParticipant(Participant participant);

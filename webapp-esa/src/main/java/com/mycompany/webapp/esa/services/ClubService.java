@@ -5,7 +5,7 @@
  */
 package com.mycompany.webapp.esa.services;
 
-import com.mycompany.webapp.esa.authentification.AuthenticationManager;
+
 import com.mycompany.webapp.esa.data.ClubRepository;
 import com.mycompany.webapp.esa.model.Club;
 import com.mycompany.webapp.esa.model.Leader;
@@ -13,8 +13,10 @@ import com.mycompany.webapp.esa.model.Participant;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
+
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import javax.inject.Named;
 
 
 
@@ -22,14 +24,10 @@ import javax.persistence.EntityManager;
  *
  * @author Viktoria Bock
  */
-
-@Stateless
+@Named
+@RequestScoped
 public class ClubService implements Serializable, ClubServiceInterface {
-    @Inject ClubRepository clubRepository;
-    @Inject EntityManager entityManager;
-    @Inject AuthenticationManager am;
     @Inject ClubRepository cr;
-    @Inject private LeaderServiceInterface leaderService;
     /**
      * Creates a new instance of ClubService
      */
@@ -48,9 +46,8 @@ public class ClubService implements Serializable, ClubServiceInterface {
     }
     
     @Override
-    public void addClub(Club club) {
+    public void addClub(Club club,int leader){
         
-        Leader leader=(Leader) leaderService.getLeaderById(am.getCurrentUserId());
         cr.doAddClub(club, leader);
     }
 

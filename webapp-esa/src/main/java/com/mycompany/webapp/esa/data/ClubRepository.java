@@ -26,35 +26,46 @@ import javax.persistence.TypedQuery;
 @Named
 @Stateless
 public class ClubRepository implements Serializable{
-    @Inject EntityManager entityManager;
+    @Inject 
+    private EntityManager em;
+    @Inject
+    private LeaderRepository lr;
  
     
     
     public List<Club> doGetAllClubs(){
-        TypedQuery<Club> query = entityManager.createNamedQuery(Club.findAll,Club.class);
+        TypedQuery<Club> query = em.createNamedQuery(Club.findAll,Club.class);
         List<Club> clubs = query.getResultList();
         return clubs;
     }
-    public String doAddClub(Club newClub,Leader leader){
+    public void doAddClub(Club newClub,int leaderid){
         
         newClub.setParticipants(new ArrayList<Participant>());
+        Leader leader =lr.doGetLeaderByID(leaderid);
         newClub.setLeader(leader);
-        entityManager.refresh(leader);
-        entityManager.persist(newClub);
-        return "";
+        //
+        //em.merge(leader);
+        //lr.doRefreshLeader(leader);
+        em.refresh(leader);
+        em.persist(newClub);
+        
+        
+         
+        
+        
     }
-    public String doDeleteClub(Club club){
+    public void doDeleteClub(Club club){
         System.out.println("deleteClub:"+club);
-        Club managedClub = entityManager.find(Club.class, club.getId());
-        entityManager.remove(managedClub);
-        entityManager.refresh(managedClub.getLeader());
-        return "";
+        Club managedClub = em.find(Club.class, club.getId());
+        em.remove(managedClub);
+        em.refresh(managedClub.getLeader());
+        
     }
      public void doUpdateClub(Club club){
-         entityManager.merge(club);
+         em.merge(club);
      }
      public Club doGetClubByID(int id){
-        List<Club> cl= entityManager.createNamedQuery("Club.findById").setParameter("id", id).getResultList();
+        List<Club> cl= em.createNamedQuery("Club.findById").setParameter("id", id).getResultList();
         return (Club)cl.get(0);
      }
      

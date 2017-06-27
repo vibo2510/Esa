@@ -12,17 +12,13 @@ import com.mycompany.webapp.esa.model.Participant;
 import com.mycompany.webapp.esa.services.ClubServiceInterface;
 import com.mycompany.webapp.esa.services.ParticipantServiceInterface;
 import java.io.Serializable;
-
-import java.util.LinkedList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -50,7 +46,12 @@ public class ListClubsOfParticipantController implements Serializable {
     void init() {
        
         p= (Participant) participantService.getParticipantById(am.getCurrentUserId());
+        if (p!= null){
         ClubList = p.getClubs();
+        }else{
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Message Title", "Teilnehmer konnte nicht gefunden werden");
+           RequestContext.getCurrentInstance().showMessageInDialog(message);
+        }
 
     }
 
