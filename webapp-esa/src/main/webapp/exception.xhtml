@@ -18,23 +18,23 @@
 
                             <h:outputLabel value="Error Code: " >
                             </h:outputLabel>
-                            <h:outputLabel value="#{exceptionController.statusCode}"></h:outputLabel>
+                            <h:outputLabel value="#{exceptionPModel.statusCode}"></h:outputLabel>
                             
                             <h:outputLabel value="Error Description: ">
                             </h:outputLabel>
-                            <h:outputText value="#{exceptionController.message}"></h:outputText>
+                            <h:outputText value="#{exceptionPModel.message}"></h:outputText>
 
                             <h:outputText value="Exception Type: ">
                             </h:outputText>
-                            <h:outputText value="#{exceptionController.exceptionType}"></h:outputText>
+                            <h:outputText value="#{exceptionPModel.exceptionType}"></h:outputText>
 
                             <h:outputText value="Exception Class: ">
                             </h:outputText>
-                            <h:outputText value="#{exceptionController.exception}"></h:outputText>
+                            <h:outputText value="#{exceptionPModel.exception}"></h:outputText>
 
                             <h:outputText value="Request URI : ">
                             </h:outputText>
-                            <h:outputText value="#{exceptionController.requestURI}"></h:outputText>
+                            <h:outputText value="#{exceptionPModel.requestURI}"></h:outputText>
 
                             <h:link outcome="login">Return to login page</h:link>
                         </h:panelGrid>

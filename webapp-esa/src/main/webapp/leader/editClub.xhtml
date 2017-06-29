@@ -18,7 +18,7 @@
                                     </p:outputLabel>
                                     <p:spacer></p:spacer>
                                     <p:inputText id="a_title"
-                                                 value="#{editClubController.selectedClub.title}" required="true">
+                                                 value="#{editClubPModel.selectedClub.title}" required="true">
                                         <f:passThroughAttribute name="placeholder"
                                                                 value="#{msg['editClub.placeholder_title']}" 
                                                                 />
@@ -30,7 +30,7 @@
                                                    "#{msg['editClub.day_of_week']}:">
                                     </p:outputLabel>
                                     <p:spacer></p:spacer>
-                                    <p:selectOneMenu id="a_dayOfWeek" value="#{editClubController.selectedClub.dayOfWeek}" style="width:125px">
+                                    <p:selectOneMenu id="a_dayOfWeek" value="#{editClubPModel.selectedClub.dayOfWeek}" style="width:125px">
                                         <f:selectItem itemLabel="#{msg['editClub.monday']}" itemValue="MONDAY" />
                                         <f:selectItem itemLabel="#{msg['editClub.tuesday']}" itemValue="TUESDAY" />
                                         <f:selectItem itemLabel="#{msg['editClub.wednesday']}" itemValue="WEDNESDAY" />
@@ -47,8 +47,7 @@
                                     <p:spacer></p:spacer>
                                     <p:inputText id="a_start"
                                                  value=
-                                                 "#{editClubController
-                                                    .selectedClub.starttime}" required="true">
+                                                 "#{editClubPModel.selectedClub.starttime}" required="true">
                                         <f:passThroughAttribute name="placeholder"
                                                                 value="#{msg['editClub.placeholder_start']}" 
                                                                 />
@@ -63,7 +62,7 @@
                                     <p:spacer></p:spacer>
                                     <p:inputText id="a_end"
                                                  value=
-                                                 "#{editClubController.selectedClub.endtime}" required="true">
+                                                 "#{editClubPModel.selectedClub.endtime}" required="true">
                                         <f:passThroughAttribute name="placeholder"
                                                                 value="#{msg['editClub.placeholder_end']}" 
                                                                 />
@@ -78,7 +77,7 @@
                                     <p:spacer></p:spacer>
                                     <p:inputText id="a_maxParticipants"
                                                  value=
-                                                 "#{editClubController.selectedClub.maxParticipants}" required="true">
+                                                 "#{editClubPModel.selectedClub.maxParticipants}" required="true">
 
                                         <f:passThroughAttribute name="placeholder"
                                                                 value="#{msg['editClub.placeholder_max_participants']}" 
@@ -93,10 +92,10 @@
                                     <p:spacer></p:spacer>
                                     <p:inputText id="a_room"
                                                  value=
-                                                 "#{editClubController.selectedClub.room}" required="true">
-                                        <f:passThroughAttribute name="placeholder"
-                                                                value="#{msg['editClub.placeholder_room']}" 
-                                                                />
+                                                 "#{editClubPModel.selectedClub.room}" required="true">
+                                                 <f:passThroughAttribute name="placeholder"
+                                                            value="#{msg['editClub.placeholder_room']}" 
+                                                            />
                                     </p:inputText>
 
                                     <p:message for="a_room" display="icon" />
@@ -109,24 +108,24 @@
                                         rows="5" 
                                         cols="30" 
                                         readonly="false" 
-                                        value="#{editClubController.selectedClub.description}" required="true"
+                                        value="#{editClubPModel.selectedClub.description}" required="true"
                                         />
                                     <p:message for="a_description" display="icon"/>
 
-                                    <p:fileUpload value="#{editClubController.file}" mode="simple" skinSimple="true" label="#{msg['editClub.choose']}" style="margin-left: 0"/>
+                                    <p:fileUpload value="#{editClubPModel.file}"  mode ="simple" skinSimple="true" label="#{msg['editClub.choose']}" style="margin-left: 0"/>
                                     <p:spacer></p:spacer>
-                                    <p:commandButton value="#{msg['editClub.submit']}" ajax="false" actionListener="#{editClubController.uploadPicture}" disabled="false" />
+                                    <p:commandButton value="#{msg['editClub.submit']}" ajax="false" actionListener="#{editClubPModel.uploadPicture}" />
                                     <p:spacer></p:spacer>
-                                    
+
                                     <p:commandButton value="#{msg['editClub.save']}"
 
-                                                     action="#{editClubController.doSave}"
+                                                     action="#{editClubPModel.doSave}"
                                                      update="panel"  />
                                     <p:spacer></p:spacer>
                                     <p:commandButton value="#{msg['editClub.cancel']}"
                                                      immediate="true" action=
-                                                     "#{editClubController.doCancel}"   />
-                                </p:panelGrid>
+                                                     "#{editClubPModel.doCancel}"   />
+                                            </p:panelGrid>
 
                             </p:panel>
                         </h:form>

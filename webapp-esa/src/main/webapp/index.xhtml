@@ -10,14 +10,14 @@
                 <ui:define name="content">
                     <p:outputPanel style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block;">
                     <p:imageSwitch effect="fade" id="fadeEffect" speed="300">
-                        <ui:repeat value="#{indexController.images}" var="image" id="fadeEffectImages" >
+                        <ui:repeat value="#{indexPModel.images}" var="image" id="fadeEffectImages" >
                             <p:graphicImage value="resources/img/#{image}" id="image" width="100%" />
                         </ui:repeat>
                     </p:imageSwitch>
 
                     <h:form id="form">
 
-                        <p:dataGrid var="club" value="#{indexController.clubList}" columns="3" 
+                        <p:dataGrid var="club" value="#{indexPModel.clubList}" columns="3" 
                                     rows="12" paginator="true" id="clubs"
                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                     rowsPerPageTemplate="6,12,16">

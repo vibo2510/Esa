@@ -17,12 +17,12 @@
 
                                     <p:menubar styleClass="myMenubar" >
                                         <p:menuitem value="#{msg['template.home']}"  icon="fa fa-home" immediate="true" url="/index.xhtml" styleClass="myMenuitem"/>
-                                        <p:menuitem value="#{msg['template.account']}" icon="fa fa-user" immediate="true" styleClass="myMenuitem" action="#{templateController.onAccountOpen()}"/>
+                                        <p:menuitem value="#{msg['template.account']}" icon="fa fa-user" immediate="true" styleClass="myMenuitem" action="#{templatePModel.onAccountOpen()}"/>
 
                                         <f:facet name="options">
-                                            <p:commandButton value="#{templateController.loggedIn ?
+                                            <p:commandButton value="#{templatePModel.loggedIn ?
                                                 msg['template.logout'] :
-                                                msg['template.login']}"  icon="fa fa-sign-out" action="#{templateController.onLogOut()}" disabled="#{!templateController.loggedIn}" widgetVar="logoutButton"
+                                                msg['template.login']}"  icon="fa fa-sign-out" action="#{templatePModel.onLogOut()}" disabled="#{!templatePModel.loggedIn}" widgetVar="logoutButton"
                                                              onclick="PF('logoutButton').disable()"  />    
                                          
                                         </f:facet>

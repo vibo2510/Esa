@@ -12,7 +12,7 @@
                     <h:form>
                         <p:outputPanel style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block;">
                             <p:graphicImage value="/resources/img/headerLeaderAccount.png" id="image" width="100%" />
-                            <p:dataTable value="#{listClubsController.clubList}"
+                            <p:dataTable value="#{listClubsPModel.clubList}"
                                          var="club" style="margin-top: -4px">
 
                                 <p:column>
@@ -62,7 +62,7 @@
 
                                     <p:commandButton onclick="PF('confirmation').show()"
                                                      actionListener=
-                                                     "#{listClubsController
+                                                     "#{listClubsPModel
                                                         .doDeleteClub(club)}"
                                                      icon="fa fa-trash" />
                                 </p:column>
@@ -81,7 +81,7 @@
                             widgetVar="confirmation">
                             <p:commandButton value="#{msg['listClubs.yes']}"
                                              oncomplete="PF('confirmation').hide()" ajax="false"
-                                             actionListener="#{listClubsController
+                                             actionListener="#{listClubsPModel
                                                                .commitDeleteClub()}" />
                             <p:commandButton value="#{msg['listClubs.no']}"
                                              onclick="PF('confirmation').hide()" />

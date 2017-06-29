@@ -11,7 +11,7 @@
                     <p:outputPanel style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); display: block;">
                     <p:graphicImage value="resources/img/accountHeader.png" id="image" width="100%" />
                     <h:form style="margin-top: -3px">
-                        <p:dataTable value="#{listClubsOfParticipantController.clubList}"
+                        <p:dataTable value="#{listClubsOfParticipantPModel.clubList}"
                                      var="club">
                             <p:column>
                                 <f:facet name="header">
@@ -53,7 +53,7 @@
                             <p:column styleClass="alignTextCenter">
                                 <p:commandButton onclick="PF('confirmation').show()"
                                                  actionListener=
-                                                 "#{listClubsOfParticipantController
+                                                 "#{listClubsOfParticipantPModel
                                                     .doDischarge(club)
 									}"
                                                  icon="fa fa-trash" />
@@ -68,7 +68,7 @@
                             widgetVar="confirmation">
                             <p:commandButton value="#{msg['listClubs.yes']}"
                                              oncomplete="PF('confirmation').hide()" ajax="false"
-                                             actionListener="#{listClubsOfParticipantController
+                                             actionListener="#{listClubsOfParticipantPModel
                                                                .commitDischarge()}" />
                             <p:commandButton value="#{msg['listClubs.no']}"
                                              onclick="PF('confirmation').hide()" />

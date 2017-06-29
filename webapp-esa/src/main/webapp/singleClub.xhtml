@@ -10,24 +10,24 @@
                 <ui:define name="content">
                 
                     <h:form id="myForm" >
-                        <p:commandButton value="#{msg['singleClub.button']}" update=":form:dataPartici" action="#{singleClubController.enroleToClub()}" style="float: right; width: 200px; height: 50px; margin-top: 15px" disabled="#{singleClubController.isEnroleable}" widgetVar="enroleButton"
+                        <p:commandButton value="#{msg['singleClub.button']}" update=":form:dataPartici" action="#{singleClubPModel.enroleToClub()}" style="float: right; width: 200px; height: 50px; margin-top: 15px" disabled="#{singleClubPModel.isEnroleable}" widgetVar="enroleButton"
                                          onclick="PF('enroleButton').disable()"  />
                     </h:form>
                    
-                    <h:graphicImage value="resources/img/#{singleClubController.title}.png" style="width: 30%"/>
-                    <h1> #{singleClubController.title} </h1>
+                    <h:graphicImage value="resources/img/#{singleClubPModel.title}.png" style="width: 30%"/>
+                    <h1> #{singleClubPModel.title} </h1>
                     <div style="width: 50%; float: left;">
                         <h2>#{msg['singleClub.description']}</h2>
-                        <p style="width: 80%;">#{singleClubController.description}</p>
+                        <p style="width: 80%;">#{singleClubPModel.description}</p>
                     </div>
                     <div style="width: 50%; float: left;">
                         <h2>#{msg['singleClub.dates']}</h2>
-                        <p>#{singleClubController.day}</p>
-                        <p>#{singleClubController.startTime} Uhr bis #{singleClubController.endTime} Uhr</p>
+                        <p>#{singleClubPModel.day}</p>
+                        <p>#{singleClubPModel.startTime} Uhr bis #{singleClubPModel.endTime} Uhr</p>
                     </div>
                     <h:form id="form" >
                         <h2>#{msg['singleClub.tableName']}</h2>
-                        <p:dataTable id="dataPartici" value="#{singleClubController.participants}"
+                        <p:dataTable id="dataPartici" value="#{singleClubPModel.participants}"
 						var="participant" >
                             <p:column>
 				<f:facet name="header">
